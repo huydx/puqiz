@@ -1,0 +1,15 @@
+// Place all the styles related to the admin/answers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.questionForm {
+  position: absolute;
+  left: 20%;
+  margin: auto; 
+}
+
+.answerRow {
+  .answerInput {
+    display: inline;
+    margin-left: 20px;
+  }
+}

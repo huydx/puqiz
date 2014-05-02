@@ -1,0 +1,19 @@
+<%= form_for @user, url: admin_users_path do |f| %>
+  <fieldset>
+    <legend>Sign up</legend>
+    <p>
+      <%= f.label :username %>
+      <%= f.text_field :username %>
+    </p>
+    <p>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </p>
+
+    <%= f.submit "sign up", class: "btn btn-primary" %>
+  </fieldset>
+<% end %>
