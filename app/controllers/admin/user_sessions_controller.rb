@@ -1,4 +1,6 @@
 class Admin::UserSessionsController < Admin::ApplicationController
+  before_filter :authenticate_admin_user!, except: [:new, :create]
+
   def new
     redirect_to root_url if logged_in?
     @session = AdminUserSession.new

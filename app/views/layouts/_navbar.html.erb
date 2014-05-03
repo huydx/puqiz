@@ -1,0 +1,9 @@
+<ul class="navbar">
+  <% if @current_user %>
+    <li class="navbar"><%= @current_user.username %></a></li>
+    <li class="navbar"><%= link_to "課題一覧", admin_questions_path %></li>
+    <li class="navbar"><%= link_to "課題作る", new_admin_question_path %></li>
+    <li class="navbar"><%= link_to "ログアウト", log_out_path %></li>
+  <% end %>
+</ul>
+

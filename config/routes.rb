@@ -24,6 +24,6 @@ Puqiz::Application.routes.draw do
   #       get 'recent', :on => :collection
   #     end
   #   end
-
+  get 'log_out', to: "admin/user_sessions#destroy"
   root :to => 'admin::questions#new'
 end

@@ -13,3 +13,21 @@
     margin-left: 20px;
   }
 }
+table.questionTable {
+  margin-left: 50px;
+
+  tr.questionFirstRow {
+    td {
+      padding-bottom: 1em;
+      padding-right: 5em;
+    }
+    td.content {
+      width: 300px;
+    }
+  }
+  tr.questionRow {
+    td {
+      padding-bottom: 0.5em;
+    }
+  }
+}

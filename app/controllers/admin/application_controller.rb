@@ -5,7 +5,7 @@ class Admin::ApplicationController < ApplicationController
   protected
   def authenticate_admin_user!
     unless (current_user && current_user.admin?)
-      redirect_to admin_user_sessions_path 
+      redirect_to new_admin_user_session_path
     end
   end
 

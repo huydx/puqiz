@@ -1,0 +1,12 @@
+<table class="questionTable">
+  <tr class="questionFirstRow">
+    <td class="content">内容</td>
+    <td>時間</td>
+    <td>レベル</td>
+    <td>タグ</td>
+    <td></td>
+  </tr>
+  <% @questions.each do |q| %>
+    <%= render partial: "question_box", locals: {question: q}%><br/>
+  <% end %>
+</table>
