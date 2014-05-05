@@ -1,0 +1,7 @@
+# lo & behold! I am a YAML comment!
+testuser:
+  id: 1
+  name: test 
+  provider: facebook
+  token: testtoken
+  uuid: 1234

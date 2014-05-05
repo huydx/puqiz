@@ -5,6 +5,10 @@ Puqiz::Application.routes.draw do
     resources :users
   end
 
+  namespace :api do
+    resources :questions
+  end
+
   resources :users do
     collection do
       post 'create'

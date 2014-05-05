@@ -12,4 +12,16 @@ class Question < ActiveRecord::Base
   validates :level, inclusion: {in: (1..LEVELNUM)}
   validates :time, inclusion: {in: TIMERANGE}
   paginates_per 50
+
+  def collect_by_degree(degree, tag)
+    #[TODO] fix hardcode string
+    
+    case degree
+    when "beginner"
+    when "intermediate"
+    when "senior"
+    when "master"
+    when "legendary"
+    end
+  end
 end
