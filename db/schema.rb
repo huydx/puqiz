@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505084241) do
+ActiveRecord::Schema.define(:version => 20140507063855) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20140505084241) do
     t.string   "flag"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "degrees", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.integer  "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "question_results", :force => true do |t|

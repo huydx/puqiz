@@ -1,38 +1,50 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :token, :uuid
   before_create :generate_token
+  after_create :set_default_degree
+
+  has_many :degrees
 
   validates :provider, inclusion: { in: %w(facebook twitter) }
   validates_uniqueness_of :name, :uuid
   validates_presence_of :name, :uuid, :provider
 
-  DEGREE = [
-    {id: 1, name: "beginner", score: 0},
-    {id: 2, name: "intermediate", score: 20},
-    {id: 3, name: "senior", score: 30},
-    {id: 4, name: "master", score: 60},
-    {id: 5, name: "legendary", score: 90}
+  SCOREMAP = [
+    {id: 1, degree: Degree::TYPE::BEGINNER, score: 0},
+    {id: 2, degree: Degree::TYPE::INTERMEDIATE, score: 20},
+    {id: 3, degree: Degree::TYPE::SENIOR, score: 30},
+    {id: 4, degree: Degree::TYPE::MASTER, score: 60},
+    {id: 5, degree: Degree::TYPE::LEGENDARY, score: 90}
   ]
   
-  RATIOWEIGHT = {1 => 5, 2 => 10, 3 => 20, 4 => 30, 5 => 45} #weigth for each level
   
-  def degree_by_tag(tag)
-    tag_id = Tag.find_by_content(tag).id
+  def degree_by_tag(tag_id)
     ratio_arr = []
     (1..Question::LEVELNUM).each do |lvl|
       ratio_arr << QuestionResult.correct_percentage_by_level(self.id, tag_id, lvl)
     end
     sc = score(ratio_arr) 
-    degree = DEGREE.find {|deg| deg[:score] <= sc}
-    return degree
+    found = SCOREMAP.find {|deg| deg[:score] <= sc}
+    return found[:degree]
   rescue Exception => e
-    logger.error("Invalid tag input: #{tag}, message: " + e.message)
+    logger.error("Degree by tag error, tag input: #{tag}, message: " + e.message)
+    return "beginner"
   end
-
+  
+  def update_degree(tag_id)
+    deg_content = degree_by_tag(tag_id)
+    degree = Degree.find_by_tag_id_and_user_id(Tag.find(tag).id, self.id)
+    degree.content = deg_content
+    degree.save
+  rescue Exception => e
+    logger.error("Update degree error: " + e.message)
+    false
+  end
+  
   def score(ratio_arr)
     sum = 0
     ratio_arr.each_with_index do |idx, rat|
-      sum += RATIOWEIGHT[idx+1] * rat / 100
+      sum += Question::LEVELWEIGHT[idx+1] * rat / 100
     end
     sum
   end
@@ -42,6 +54,12 @@ class User < ActiveRecord::Base
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)
       break random_token unless User.exists?(token: random_token)
+    end
+  end
+
+  def set_default_degree
+    Tag.all.each do |tag|
+      Degree.create(user_id: self.id, tag_id: tag.id, content: Degree::BEGINNER)
     end
   end
 end
