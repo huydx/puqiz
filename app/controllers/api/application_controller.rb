@@ -5,7 +5,7 @@ class Api::ApplicationController < ApplicationController
   def authenticate_user!
     render_unauthenticate and return unless params[:token] && params[:uid]
     @user = User.find_by_id(params[:uid])
-    render_unauthenticate and return unless user && user.token == params[:token]
+    render_unauthenticate and return unless @user && @user.token == params[:token]
   end
 
   def render_unauthenticate

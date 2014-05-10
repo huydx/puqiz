@@ -5,7 +5,7 @@ class Api::QuestionsController < Api::ApplicationController
     offset = (params[:offset] || 0).to_i
     deg = current_user.degree_by_tag(tag_id)
     questions = Question.collect_by_degree_and_tag(deg, tag_id, offset)
-    render json: {status: "success", data: questions.to_json(include: :answers)}
+    render json: {status: "success", data: questions.as_json(include: :answers, except: [:created_at, :updated_at])}
   rescue
     render json: {status: "failed"}
   end
