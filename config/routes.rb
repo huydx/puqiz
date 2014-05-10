@@ -3,6 +3,7 @@ Puqiz::Application.routes.draw do
     resources :questions
     resources :user_sessions
     resources :users
+    resources :question_results
   end
 
   namespace :api do

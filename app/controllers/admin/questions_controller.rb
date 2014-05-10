@@ -21,9 +21,6 @@ class Admin::QuestionsController < Admin::ApplicationController
   
   def update
     @question = Question.find_by_id(params[:id])
-    (Question::ANSWERNUM - @question.answers.size).times {
-      @question.answers.build
-    }
     @question.update_attributes!(params[:question])
     render 'edit'
   rescue Exception => e

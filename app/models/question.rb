@@ -39,7 +39,7 @@ class Question < ActiveRecord::Base
   validates :content, length: {minimum: 5}
   validates :level, inclusion: {in: (1..LEVELNUM)}
   validates :time, inclusion: {in: TIMERANGE}
-  paginates_per 50
+  paginates_per 10
 
   def self.collect_by_degree_and_tag(degree, tag_id, _offset)
     questions = case degree
