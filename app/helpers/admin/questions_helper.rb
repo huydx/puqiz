@@ -20,4 +20,10 @@ module Admin::QuestionsHelper
     return text if text.length <= max_len
     return "#{text[0..max_len-1]}..."
   end
+
+  def tag_content(id)
+    @tags ||= Tag.all.map {|t| [t.id, t.content]}
+    ret = @tags.find {|t| t[0] == id}
+    return ret[1] if ret
+  end
 end

@@ -1,6 +1,8 @@
 Puqiz::Application.routes.draw do
   namespace :admin do
-    resources :questions
+    resources :questions do
+      get 'delete'
+    end
     resources :user_sessions
     resources :users
     resources :question_results

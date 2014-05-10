@@ -7,6 +7,16 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
 
   def batch_create
-    #need to talk with ios side
+    if new_degree = update_user_degree
+      render json: {status: "success", data: {degree: new_degree.content}} 
+    else 
+      render json: {status: "failed"} 
+    end
+  end
+
+  private
+  def update_user_degree
+    tag_id = params[:tag_id] || Tag::DEFAULT_TAG
+    current_user.update_degree(tag_id)
   end
 end

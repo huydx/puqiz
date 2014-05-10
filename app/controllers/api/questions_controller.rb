@@ -5,5 +5,7 @@ class Api::QuestionsController < Api::ApplicationController
     deg = current_user.degree_by_tag(tag_id)
     questions = Question.collect_by_degree_and_tag(deg, tag_id)
     render json: {status: "success", data: questions.to_json(include: :answers)}
+  rescue
+    render json: {status: "failed"}
   end
 end

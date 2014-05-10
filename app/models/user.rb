@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
     degree = Degree.find_by_tag_id_and_user_id(Tag.find(tag).id, self.id)
     degree.content = deg_content
     degree.save
+    return degree
   rescue Exception => e
     logger.error("Update degree error: " + e.message)
     false

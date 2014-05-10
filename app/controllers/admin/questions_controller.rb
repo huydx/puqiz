@@ -1,11 +1,8 @@
 class Admin::QuestionsController < Admin::ApplicationController
-  before_filter :prepare_form_before
+  before_filter :prepare_edit_form_before, only: [:new, :edit, :show, :update]
+  before_filter :prepare_index_view_before, only: [:index, :delete]
       
-  def index
-    page = params[:page].to_i if params[:page] and params[:page] =~ /^(\d)*/
-    page ||= 0
-    @questions = Question.page(page) 
-  end  
+  def index; end  
   
   def new; end
 
@@ -28,8 +25,15 @@ class Admin::QuestionsController < Admin::ApplicationController
     render 'edit'
   end
 
+  def delete
+    qid = (params[:question_id] || -1).to_i
+    render 'index' and return unless qid > 0
+    Question.delete(qid)
+    render 'index'
+  end
+
   protected
-  def prepare_form_before
+  def prepare_edit_form_before
     params[:question][:level] = params[:question][:level].to_i if params[:question] && params[:question][:level]
     @tags = Tag.all.map{|t| [t.content, t.id]}
     @timerange = Question::TIMERANGE
@@ -38,5 +42,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     (Question::ANSWERNUM - @question.answers.size).times {
       @question.answers.build
     }
+  end
+  
+  def prepare_index_view_before
+    page = params[:page].to_i if params[:page] and params[:page] =~ /^(\d)*/
+    page ||= 0
+    @questions = Question.page(page) 
   end
 end
