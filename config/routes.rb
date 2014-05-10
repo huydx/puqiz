@@ -6,6 +6,7 @@ Puqiz::Application.routes.draw do
     resources :user_sessions
     resources :users
     resources :question_results
+    resources :tags
   end
 
   namespace :api do
