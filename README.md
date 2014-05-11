@@ -51,6 +51,10 @@ puqiz
 ##Question view render
   Endpoint: GET *host/api/questions*
 
-  Must have params [id] <question id>
+  Must have params [id] <question id> + [uid] + [token]
+
+  ```
+    host/point/question/:id&uid=xxx&token=yyy
+  ```
 
   Return: Rendered html page
