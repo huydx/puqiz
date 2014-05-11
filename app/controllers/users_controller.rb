@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def create
     u = User.create(verified_user_params)
-    render json: {status: "success", id: u.id, token: u.token}
+    render json: {status: "success", data: {id: u.id, name: u.name, token: u.token, provider: u.provider}}
   rescue Exception => e
     logger.error(e)
     render json: {status: "failed"}
