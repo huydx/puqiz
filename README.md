@@ -3,7 +3,10 @@ puqiz
 
 #API spec
 ##User create
+  Endpoint: **host/users**
+  
   Must have params: [name] + [provider]<twitter|facebook> + [uuid]
+  
   Return:
   ```
     {
