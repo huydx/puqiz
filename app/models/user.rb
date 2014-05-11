@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :token, :uuid
-  before_create :generate_token
+  before_create :generate_token!
   after_create :set_default_degree
 
   has_many :degrees
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
 
   protected
-  def generate_token
+  def generate_token!
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)
       break random_token unless User.exists?(token: random_token)
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
 
   def set_default_degree
     Tag.all.each do |tag|
-      Degree.create(user_id: self.id, tag_id: tag.id, content: Degree::BEGINNER)
+      Degree.create(user_id: self.id, tag_id: tag.id, type: Degree::TYPE::BEGINNER)
     end
   end
 end

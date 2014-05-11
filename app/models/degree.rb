@@ -1,4 +1,6 @@
 class Degree < ActiveRecord::Base
+  self.inheritance_column = "type_inheritance"
+
   attr_accessible :tag_id, :type, :user_id
   module TYPE
     BEGINNER = 1
