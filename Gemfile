@@ -24,3 +24,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'unicorn'
 gem 'capistrano'
 gem 'kaminari'
+
+#markdown renderer
+gem 'markdown-rails'
+gem 'redcarpet'
+gem 'pygments.rb'

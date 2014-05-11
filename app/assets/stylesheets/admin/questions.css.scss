@@ -5,6 +5,8 @@
   position: absolute;
   left: 20%;
   margin: auto; 
+  float: left;
+  width: 70%;
 }
 
 .answerRow {
@@ -30,4 +32,11 @@ table.questionTable {
       padding-bottom: 0.5em;
     }
   }
+}
+
+.markdownRender {
+  float: right;
+  width: 30%;
+  height: 500px;
+  border: 1px ridge #000000;
 }

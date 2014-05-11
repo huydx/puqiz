@@ -6,6 +6,7 @@ Puqiz::Application.routes.draw do
     resources :user_sessions
     resources :users
     resources :question_results
+    post 'markdown', to: "markdown#rendering"
   end
 
   namespace :api do
