@@ -47,3 +47,10 @@ puqiz
         Tags {id, content}
     }
   ```
+
+##Question view render
+  Endpoint: GET *host/api/questions*
+
+  Must have params [id] <question id>
+
+  Return: Rendered html page

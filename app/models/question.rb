@@ -55,6 +55,6 @@ class Question < ActiveRecord::Base
                   Question.for_legendary(tag_id)
                 end
 
-    questions.with_answers.limit(QUESTIONNUM_EACHREQUEST).offset(_offset)
+    questions.with_answers.limit(QUESTIONNUM_EACHREQUEST).offset(_offset) if questions
   end
 end
