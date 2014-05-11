@@ -14,7 +14,9 @@ class Api::QuestionsController < Api::ApplicationController
   def show
     raise Exception.new("id parameter is null") unless params[:id]
     @question = Question.find_by_id(params[:id].to_i)
-  rescue
+    render layout: false
+  rescue Exception => e
+    logger.error(e.message)
     render text: "Loading failed"
   end
 end

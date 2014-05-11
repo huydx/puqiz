@@ -1,1 +1,3 @@
-<%= $markdown.render @question.content %>
+<div class="questionView">
+  <%= ($markdown.render @question.content).html_safe %>
+</div>
