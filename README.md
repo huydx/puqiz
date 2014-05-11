@@ -2,6 +2,17 @@ puqiz
 =====
 
 #API spec
+##User create
+  Must have params: [name] + [provider]<twitter|facebook> + [uuid]
+  Return:
+  ```
+    {
+      status: success | failed
+      data:
+      {id, name, provider, token}
+    }
+  ```
+
 ##User authenticate
   Must have params: [uid] <user id, got at first time request>, [token] <user token>
 ##Question list
