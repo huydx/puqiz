@@ -8,9 +8,9 @@ class Api::QuestionResultsController < Api::ApplicationController
 
   def batch_create
     if new_degree = update_user_degree
-      render json: {status: "success", data: {degree: new_degree.content}} 
+      render json: {status: true, data: {degree: new_degree.content}} 
     else 
-      render json: {status: "failed"} 
+      render json: {status: false} 
     end
   end
 

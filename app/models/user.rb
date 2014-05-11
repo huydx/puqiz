@@ -50,7 +50,6 @@ class User < ActiveRecord::Base
     sum
   end
 
-  protected
   def generate_token!
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)
@@ -58,6 +57,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  protected
   def set_default_degree
     Tag.all.each do |tag|
       Degree.create(user_id: self.id, tag_id: tag.id, type: Degree::TYPE::BEGINNER)

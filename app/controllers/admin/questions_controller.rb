@@ -1,5 +1,5 @@
 class Admin::QuestionsController < Admin::ApplicationController
-  before_filter :prepare_edit_form_before, only: [:new, :edit, :show, :update]
+  before_filter :prepare_edit_form_before, only: [:new, :create, :edit, :show, :update]
   before_filter :prepare_index_view_before, only: [:index, :delete]
       
   def index; end  

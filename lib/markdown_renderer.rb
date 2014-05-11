@@ -2,20 +2,35 @@ require 'redcarpet'
 require 'pygments'
 
 class MarkdownRenderer
-  class PygmentsHTML < Redcarpet::Render::HTML
-    def block_code code, language
-      Pygments.highlight code, lexer: language
-    end
+  attr_accessor :markdown
+
+  class HTMLwithPygments < Redcarpet::Render::HTML
+    def block_code(code, language)
+      Pygments.highlight(code, lexer: language.to_sym, options: {
+        encoding: 'utf-8'
+      })
   end
-    
-  mattr_accessor :renderer
-  
+end
+ 
   def initialize
-    html_render = PygmentsHTML.new(hard_wrap: true, filter_html: true)
-    @renderer = Redcarpet::Markdown.new( html_render, autolink: true, fenced_code_blocks: true, space_after_headers: true )
+    @markdown = Redcarpet::Markdown.new(HTMLwithPygments,
+      :fenced_code_blocks => true,
+      :no_intra_emphasis => true,
+      :autolink => true,
+      :strikethrough => true,
+      :lax_html_blocks => true,
+      :superscript => true,
+      :hard_wrap => false,
+      :tables => true,
+      :xhtml => false)
   end
 
-  def render(text)
-    @renderer.render(text)
-  end
+  def render(text) 
+    text.gsub!(/\{\{( *)?"(.*?)"\}\}/, '\1\2')
+    text.gsub!(/^\{% highlight (.+?) ?%\}(.*?)^\{% endhighlight %\}/m) do |match|
+      Pygments.highlight($2, :lexer => $1, :options => {:encoding => 'utf-8'})
+    end
+   
+    @markdown.render(text)
+  end 
 end
