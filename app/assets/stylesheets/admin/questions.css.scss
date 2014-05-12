@@ -33,12 +33,23 @@ table.questionTable {
     }
   }
 }
+.iphone {
+  position: fixed;
+  right: 100px;
+  top: 10px;
+  background-image: image-url("iphone.png");
+  width: 375px;
+  height: 806px;
 
-.markdownRender {
-  float: right;
-  width: 320px;
-  height: 568px;
-  border: 1px ridge #000000;
+  .markdownRender {
+    position: absolute;
+    top: 147px;
+    left: 27px;
+    width: 320px;
+    height: 568px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+  }
 }
 
 .hll { background-color: #ffffcc }
