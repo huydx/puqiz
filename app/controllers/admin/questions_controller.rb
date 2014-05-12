@@ -1,8 +1,16 @@
+#-*- encoding: utf-8 -*-
+
 class Admin::QuestionsController < Admin::ApplicationController
   before_filter :prepare_edit_form_before, only: [:new, :create, :edit, :show, :update]
   before_filter :prepare_index_view_before, only: [:index, :delete]
       
-  def index; end  
+  def index
+    tag_id = (params[:tag_id] || 0).to_i
+    if tag_id > 0
+      @questions = @questions.where(tag_id: tag_id)
+    end
+    @select_tag_id = tag_id
+  end  
   
   def new; end
 
@@ -48,5 +56,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     page = params[:page].to_i if params[:page] and params[:page] =~ /^(\d)*/
     page ||= 0
     @questions = Question.page(page) 
+    @tags = Tag.all.map{|t| [t.content, t.id]}
+    @tags.prepend ["全部", 0]
   end
 end

@@ -1,3 +1,4 @@
+<%= select_tag :tagFilter, options_for_select(@tags, @select_tag_id), id: "tagFilter" %> タグでフィルタ
 <table class="questionTable">
   <tr class="questionFirstRow">
     <td class="content">内容</td>
@@ -12,3 +13,13 @@
   <% end %>
 </table>
 <%= paginate @questions %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#tagFilter").change(function() {
+      var tag_id = $(this).val();
+      var origin_url = window.location.origin;
+      var url = origin_url.substr(0, origin_url.indexOf("?"));
+      location.href = url + "?tag_id=" + tag_id;
+    });
+  });
+</script>
