@@ -15,8 +15,14 @@ class Admin::QuestionsController < Admin::ApplicationController
   def new; end
 
   def create
-    @question = Question.create(params[:question])
+    @question = Question.create(params[:question]) do |q|
+      q.html_content = $markdown.render(params[:question][:content])
+    end
+
     flash.now[:error] = @question.errors.messages if @question.errors
+    render 'new'
+  rescue Exception => e
+    logger.error(e.message)
     render 'new'
   end
 
@@ -27,6 +33,8 @@ class Admin::QuestionsController < Admin::ApplicationController
   def update
     @question = Question.find_by_id(params[:id])
     @question.update_attributes!(params[:question])
+    @question.html_content = $markdown.render(params[:question][:content])
+    @question.save
     render 'edit'
   rescue Exception => e
     flash.now[:error] = e.message

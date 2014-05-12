@@ -6,7 +6,7 @@
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>
     時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
     レベル：<%= slider_view(Question::LEVELNUM, f.object.level.to_i).html_safe %>
-    <span id="levelNum"><%= f.object.level.to_i %></span><br/>
+    <span id="levelNum"><%= f.object.level.to_i == 0 ? 1 : f.object.level.to_i %></span><br/>
     <%= f.hidden_field :level, value: f.object.level.to_i %>
     <%= f.fields_for :answers do |builder| %>
     <div class="answerRow">
