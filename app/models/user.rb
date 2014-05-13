@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
   
   def update_degree(tag_id)
     deg_content = degree_by_tag(tag_id)
-    degree = Degree.find_by_tag_id_and_user_id(Tag.find(tag).id, self.id)
-    degree.content = deg_content
+    degree = Degree.find_by_tag_id_and_user_id(Tag.find_by_id(tag_id), self.id)
+    degree.type = deg_content
     degree.save
     return degree
   rescue Exception => e

@@ -5,12 +5,16 @@ Puqiz::Application.routes.draw do
     end
     resources :user_sessions
     resources :users
-    resources :question_results
     post 'markdown', to: "markdown#rendering"
   end
 
   namespace :api do
     resources :questions
+    resources :question_results do
+      collection do
+        post 'batch_create'
+      end
+    end
     resources :tags
   end
 

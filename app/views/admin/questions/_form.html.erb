@@ -12,8 +12,8 @@
     <div class="answerRow">
       <%= builder.label :content, "回答内容", class: "answerInput" %>
       <%= builder.text_field :content, :rows => 1, class: "answerInput" %>
-      <%= builder.label :flag, "結果", class: "answerInput" %>
-      <%= builder.select :flag, options_for_select([["正","0"],["否","1"]], builder.object.flag) , class: "answerInput" %>
+      <%= builder.label :flag, "正" %>
+      <%= builder.radio_button :flag, {disabled: builder.object.flag == 0}, class: "answerFlagRadio", name: "answerFlagRadio" %>
       <br/>
     </div>
     <% end %>
@@ -42,7 +42,9 @@
       $.post("/admin/markdown", {text: text}, function(data) {
         $(".markdownRender").html(data);  
       });
-    })
+      });
+    $(".answerFlagRadio").click(function() {
+    });
 
   });
 </script>
