@@ -1,6 +1,7 @@
 class QuestionResult < ActiveRecord::Base
   attr_accessible :question_id, :result, :user_id, :tag_id, :level
   validates :result, inclusion: {in: ["true", "false"]}
+  before_save :convert_fields_to_int
 
   scope :false_result, lambda { |uid, tagid|
     where(user_id: uid, tag_id: tagid, result: "false")
@@ -23,5 +24,12 @@ class QuestionResult < ActiveRecord::Base
     100 * (correct_records / (false_records + correct_records))
   rescue
     0
+  end
+
+  protected
+  def convert_fields_to_int
+    self.user_id = self.user_id.to_i
+    self.tag_id = self.tag_id.to_i
+    self.level = self.level.to_i
   end
 end

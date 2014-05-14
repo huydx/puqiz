@@ -7,17 +7,17 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
 
   def batch_create
-    correct_ids = params[:data][:correct_questions]
-    failed_id = params[:data][:failed_question]
+    correct_questions = params[:data][:correct_questions]
+    failed_question = params[:data][:failed_question]
 
-    unless correct_ids.empty?
-      correct_ids.each do |id|
-        update_correct_question(id.to_i)  
+    unless correct_questions.empty?
+      correct_questions.each do |q|
+        update_correct_question(ActiveSupport::HashWithIndifferentAccess.new(q))
       end
     end
-
-    if failed_id.to_i > 0
-      update_failed_question(failed_id.to_i)
+    
+    if failed_question
+      update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
     end
 
     if new_degree = update_user_degree
@@ -31,21 +31,21 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
 
   private
-  def update_correct_question(id)
-    if correct_question = QuestionResult.find_by_question_id(id)
-      correct_question.result = "true"
-      correct_question.save
-    else
-      QuestionResult.create(question_id: id.to_i, user_id: current_user.id, result: "true") 
-    end
+  def update_correct_question(result_params)
+    result_params.merge!(result: "true", user_id: current_user.id)
+    update_question_result(result_params)
   end
 
-  def update_failed_question(id)
-    if failed_question = QuestionResult.find_by_question_id(id)
-      failed_question.result = "false"
-      failed_question.save
+  def update_failed_question(result_params)
+    result_params.merge!(result: "false", user_id: current_user.id)
+    update_question_result(result_params)
+  end
+
+  def update_question_result(result_params)
+    if result = QuestionResult.find_by_question_id(result_params[:question_id])
+      result.update_attributes!(result_params)
     else
-      QuestionResult.create(question_id: id.to_i, user_id: current_user.id, result: "false")
+      QuestionResult.create(result_params) 
     end
   end
 

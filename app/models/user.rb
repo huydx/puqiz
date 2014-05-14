@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
     found = SCOREMAP.find {|deg| deg[:score] <= sc}
     return found[:degree]
   rescue Exception => e
-    logger.error("Degree by tag error, tag input: #{tag}, message: " + e.message)
-    return "beginner"
+    logger.error("Degree by tag error, tag input: #{tag_id}, message: " + e.message)
+    return Degree::TYPE::BEGINNER
   end
   
   def update_degree(tag_id)

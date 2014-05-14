@@ -25,7 +25,15 @@ class UsersController < ApplicationController
   end
 
   def render_user_json_success
-    render json: {status: true, data: {id: @user.id, name: @user.name, token: @user.token, provider: @user.provider}}
+    render json: {
+      status: true, 
+      data: {
+        id: @user.id, 
+        name: @user.name, 
+        token: @user.token, 
+        provider: @user.provider
+      }
+    }
   end
   
   def verified_user_params
