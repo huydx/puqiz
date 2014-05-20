@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513161753) do
+ActiveRecord::Schema.define(:version => 20140520103118) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20140513161753) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
   create_table "degrees", :force => true do |t|
     t.integer  "user_id"
     t.integer  "tag_id"
@@ -45,9 +47,12 @@ ActiveRecord::Schema.define(:version => 20140513161753) do
     t.string   "result"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "tag_id"
+    t.integer  "tag_id"
     t.integer  "level"
   end
+
+  add_index "question_results", ["question_id"], :name => "index_question_results_on_question_id"
+  add_index "question_results", ["user_id"], :name => "index_question_results_on_user_id"
 
   create_table "questions", :force => true do |t|
     t.string   "content"
@@ -82,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20140513161753) do
     t.string   "token"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "point"
   end
 
 end

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :provider, :token, :uuid
+  attr_accessible :name, :provider, :token, :uuid, :point
   before_create :generate_token!
   after_create :set_default_degree
 
@@ -10,22 +10,15 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :uuid, :provider
 
   SCOREMAP = [
-    {id: 1, degree: Degree::TYPE::BEGINNER, score: 0},
-    {id: 2, degree: Degree::TYPE::INTERMEDIATE, score: 20},
-    {id: 3, degree: Degree::TYPE::SENIOR, score: 30},
-    {id: 4, degree: Degree::TYPE::MASTER, score: 60},
-    {id: 5, degree: Degree::TYPE::LEGENDARY, score: 90}
+    {id: 1, degree: Degree::TYPE::BEGINNER, score: 100},
+    {id: 2, degree: Degree::TYPE::INTERMEDIATE, score: 500},
+    {id: 3, degree: Degree::TYPE::SENIOR, score: 1000},
+    {id: 4, degree: Degree::TYPE::MASTER, score: 3000},
+    {id: 5, degree: Degree::TYPE::LEGENDARY, score: 5000}
   ]
   
   
   def degree_by_tag(tag_id)
-    ratio_arr = []
-    (1..Question::LEVELNUM).each do |lvl|
-      ratio_arr << QuestionResult.correct_percentage_by_level(self.id, tag_id, lvl)
-    end
-    sc = score(ratio_arr) 
-    found = SCOREMAP.find {|deg| deg[:score] <= sc}
-    return found[:degree]
   rescue Exception => e
     logger.error("Degree by tag error, tag input: #{tag_id}, message: " + e.message)
     return Degree::TYPE::BEGINNER
@@ -42,13 +35,13 @@ class User < ActiveRecord::Base
     false
   end
   
-  def score(ratio_arr)
-    sum = 0
-    ratio_arr.each_with_index do |idx, rat|
-      sum += Question::LEVELWEIGHT[idx+1] * rat / 100
-    end
-    sum
-  end
+  #def score(ratio_arr)
+  #  sum = 0
+  #  ratio_arr.each_with_index do |idx, rat|
+  #    sum += Question::LEVELWEIGHT[idx+1] * rat / 100
+  #  end
+  #  sum
+  #end
 
   def generate_token!
     self.token = loop do

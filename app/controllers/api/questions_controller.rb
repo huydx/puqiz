@@ -1,10 +1,11 @@
 class Api::QuestionsController < Api::ApplicationController
   protect_from_forgery except: [:index]
   def index
-    tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
-    offset = (params[:offset] || 0).to_i
-    deg = Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
-    questions = Question.collect_by_degree_and_tag(deg.type, tag_id, offset)
+    _tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
+    _offset = (params[:offset] || 0).to_i
+    _limit = (params[:limit] || Question::QUESTION_PER_REQUEST).to_i
+    questions = Question.where(tag_id: _tag_id).limit(_limit).offset(_offset)
+
     render json: {status: true, data: questions.as_json(include: :answers, except: [:created_at, :updated_at])}
   rescue Exception => e
     logger.error(e.message)

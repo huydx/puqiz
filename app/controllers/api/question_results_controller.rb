@@ -1,4 +1,6 @@
 class Api::QuestionResultsController < Api::ApplicationController
+  after_filter :update_user_score_and_point
+
   def create
     qid = params[:question_id]
     uid = current_user.id
@@ -9,6 +11,7 @@ class Api::QuestionResultsController < Api::ApplicationController
   def batch_create
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
+    point = 0
 
     unless correct_questions.empty?
       correct_questions.each do |q|
@@ -19,8 +22,8 @@ class Api::QuestionResultsController < Api::ApplicationController
     if failed_question
       update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
     end
-
-    if new_degree = update_user_degree
+    
+    if new_degree = update_user_point_and_degree
       render json: {status: true, data: {degree: new_degree.type}} 
     else 
       render json: {status: false} 
@@ -48,9 +51,18 @@ class Api::QuestionResultsController < Api::ApplicationController
       QuestionResult.create(result_params) 
     end
   end
+  
+  protected
+  def update_user_point_and_degree
+    update_user_point
+    return update_user_degree(point)
+  end
 
-  def update_user_degree
-    tag_id = params[:tag_id] || Tag::DEFAULT_TAG
-    current_user.update_degree(tag_id)
+  def update_user_point
+
+  end
+
+  def update_user_degree(point)
+    
   end
 end

@@ -28,8 +28,8 @@ class QuestionResult < ActiveRecord::Base
 
   protected
   def convert_fields_to_int
-    self.user_id = self.user_id.to_i
-    self.tag_id = self.tag_id.to_i
-    self.level = self.level.to_i
+    self.user_id = user_id.to_i
+    self.tag_id = tag_id.to_i
+    self.level = level.to_i
   end
 end
