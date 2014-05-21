@@ -179,6 +179,8 @@ GEM
       rack
       raindrops (~> 0.7)
     yajl-ruby (1.1.0)
+    zeus (0.15.1)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -203,3 +205,4 @@ DEPENDENCIES
   scrypt
   uglifier (>= 1.0.3)
   unicorn
+  zeus

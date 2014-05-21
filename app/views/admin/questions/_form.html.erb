@@ -5,15 +5,15 @@
     内容：<%= f.text_area :content, rows: 3, cols: 10, id: "questionContent" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn", type: "button" %><br/>
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>
     時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
-    レベル：<%= slider_view(Question::LEVELNUM, f.object.level.to_i).html_safe %>
-    <span id="levelNum"><%= f.object.level.to_i == 0 ? 1 : f.object.level.to_i %></span><br/>
+    レベル：<%= slider_view(Question::LEVELNUM, level(f.object)).html_safe %>
+    <span id="levelNum"><%= level(f.object) %></span><br/>
     <%= f.hidden_field :level, value: f.object.level.to_i %>
     <%= f.fields_for :answers do |builder| %>
     <div class="answerRow">
       <%= builder.label :content, "回答内容", class: "answerInput" %>
       <%= builder.text_field :content, :rows => 1, class: "answerInput" %>
       <%= builder.label :flag, "正" %>
-      <%= builder.radio_button :flag, {disabled: builder.object.flag == 0}, class: "answerFlagRadio", name: "answerFlagRadio" %>
+      <%= builder.radio_button :flag, 'answerRadio', {checked: builder.object.flag == 0, class: "answerFlagRadio"} %>
       <br/>
     </div>
     <% end %>
@@ -31,7 +31,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
     value = $("#levelNum").html();
-    console.log(value);  
     $(".slider").slider({value: parseInt(value)})
       .on('slide', function(ev) {
         $(this).closest('form').find('#question_level').val(ev.value);

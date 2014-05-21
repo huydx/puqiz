@@ -26,4 +26,8 @@ module Admin::QuestionsHelper
     ret = @tags.find {|t| t[0] == id}
     return ret[1] if ret
   end
+
+  def level(question)
+    question.level.to_i == 0 ? 1 : question.level.to_i
+  end
 end

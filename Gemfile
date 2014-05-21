@@ -16,6 +16,7 @@ group :development do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'rspec-rails'
+  gem 'zeus'
 end
 
 gem 'jquery-rails'
