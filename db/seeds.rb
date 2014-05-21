@@ -12,3 +12,10 @@ tags = Tag.create([
           {content: "C++"},
           {content: "C"}
         ])
+
+admin = AdminUser.create(
+          username: 'admin',
+          password: 'admin',
+          password_confirmation: 'admin',
+          role: 'admin'
+        )
