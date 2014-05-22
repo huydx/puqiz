@@ -15,7 +15,6 @@ class Admin::QuestionsController < Admin::ApplicationController
   def new; end
 
   def create
-    binding.pry
     @question = Question.create(params[:question]) do |q|
       q.html_content = $markdown.render(params[:question][:content])
     end
