@@ -1,8 +1,8 @@
 #-*- encoding: utf-8 -*-
-
 class Admin::QuestionsController < Admin::ApplicationController
   before_filter :prepare_edit_form_before, only: [:new, :create, :edit, :show, :update]
   before_filter :prepare_index_view_before, only: [:index, :delete]
+  before_filter :merge_params_answer, only: [:update]
       
   def index
     tag_id = (params[:tag_id] || 0).to_i
@@ -66,5 +66,12 @@ class Admin::QuestionsController < Admin::ApplicationController
     @questions = Question.page(page) 
     @tags = Tag.all.map{|t| [t.content, t.id]}
     @tags.prepend ["全部", 0]
+  end
+
+  def merge_params_answer
+    if answers = params[:question][:answers_attributes]
+      answers.each { |key, val| val.merge!("flag" => "0") unless val["flag"] }
+    end
+  rescue Exception => e
   end
 end

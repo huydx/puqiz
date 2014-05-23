@@ -13,7 +13,7 @@
       <%= builder.label :content, "回答内容", class: "answerInput" %>
       <%= builder.text_field :content, :rows => 1, class: "answerInput" %>
       <%= builder.label :flag, "正" %>
-      <%= builder.radio_button :flag, 'answerRadio', {checked: builder.object.flag == 1, class: "answerFlagRadio", state: builder.object.flag == 1} %>
+      <%= builder.radio_button :flag, 1, {checked: builder.object.flag == 1, class: "answerFlagRadio", state: builder.object.flag == 1} %>
       <br/>
     </div>
     <% end %>
@@ -44,8 +44,9 @@
       });
     $(".answerFlagRadio").click(function() {
       var state = $(this).prop('state');
-      $(this).prop('checked', !state);  
-      $(this).prop('state', !state);  
+      $(this).prop('checked', !state);
+      $(this).prop('state', !state);
+      $(this).val(!state ? 1 : 0);
     });
 
   });
