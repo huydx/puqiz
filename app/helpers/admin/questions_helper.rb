@@ -27,7 +27,7 @@ module Admin::QuestionsHelper
     return ret[1] if ret
   end
 
-  def level(question)
-    question.level.to_i == 0 ? 1 : question.level.to_i
+  def default_level(object)
+    object.level.nil? ? 1 : object.level
   end
 end

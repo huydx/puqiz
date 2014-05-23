@@ -5,15 +5,15 @@
     内容：<%= f.text_area :content, rows: 3, cols: 10, id: "questionContent" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn", type: "button" %><br/>
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>
     時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
-    レベル：<%= slider_view(Question::LEVELNUM, level(f.object)).html_safe %>
-    <span id="levelNum"><%= level(f.object) %></span><br/>
-    <%= f.hidden_field :level, value: f.object.level.to_i %>
+    レベル：<%= slider_view(Question::LEVELNUM, default_level(f.object)).html_safe %>
+    <span id="levelNum"><%= default_level(f.object) %></span><br/>
+    <%= f.hidden_field :level, value: default_level(f.object) %>
     <%= f.fields_for :answers do |builder| %>
     <div class="answerRow">
       <%= builder.label :content, "回答内容", class: "answerInput" %>
       <%= builder.text_field :content, :rows => 1, class: "answerInput" %>
       <%= builder.label :flag, "正" %>
-      <%= builder.radio_button :flag, 'answerRadio', {checked: builder.object.flag == 0, class: "answerFlagRadio"} %>
+      <%= builder.radio_button :flag, 'answerRadio', {checked: builder.object.flag == 1, class: "answerFlagRadio", state: builder.object.flag == 1} %>
       <br/>
     </div>
     <% end %>
@@ -43,6 +43,9 @@
       });
       });
     $(".answerFlagRadio").click(function() {
+      var state = $(this).prop('state');
+      $(this).prop('checked', !state);  
+      $(this).prop('state', !state);  
     });
 
   });

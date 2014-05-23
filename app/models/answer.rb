@@ -5,6 +5,6 @@ class Answer < ActiveRecord::Base
 
   protected
   def santinize_flag
-    self.flag = self.flag.nil? ? 0 : 1
+    self.flag = flag.nil? ? 0 : 1
   end
 end
