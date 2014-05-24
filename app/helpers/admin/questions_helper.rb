@@ -7,13 +7,17 @@ module Admin::QuestionsHelper
 
   def error_view(errors)
     view = ""
-    return view unless errors.is_a? Hash
-    errors.each do |k, v|
-      view << <<-ERROR
-        <span class="label label-warning">#{k.to_s} error: #{v.join(" and ")}</span><br/>
-      ERROR
+    if errors.is_a? Hash
+      errors.each do |k, v|
+        view << <<-ERROR
+          <span class="label label-warning">#{k.to_s} error: #{v.join(" and ")}</span><br/>
+        ERROR
+      end
+      view << "<br/>"
+    elsif errors.is_a? String  
+      view = "<span class='label label-warning'>error: #{errors}</span><br/>"
     end
-    view << "<br/>"
+    view
   end
 
   def shorten(text, max_len)

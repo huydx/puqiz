@@ -35,6 +35,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question.update_attributes!(params[:question])
     @question.html_content = $markdown.render(params[:question][:content])
     @question.save
+    flash.now[:error] = @question.errors.messages if @question.errors
     render 'edit'
   rescue Exception => e
     flash.now[:error] = e.message

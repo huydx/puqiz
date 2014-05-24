@@ -14,7 +14,7 @@ class Question < ActiveRecord::Base
   scope :with_answers, lambda { includes(:answers) }
 
   validates_presence_of :content, :time, :tag_id
-  validates_format_of :url, with: URI.regexp(['http', 'https']), allow_nil: true
+  validates_format_of :url, with: URI.regexp(['http', 'https']), allow_nil: true, allow_blank: true
   validates :content, length: {minimum: 5}
   validates :level, inclusion: {in: (1..LEVELNUM)}
   validates :time, inclusion: {in: TIMERANGE}
