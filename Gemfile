@@ -17,12 +17,16 @@ group :development do
   gem 'better_errors'
   gem 'rspec-rails'
   gem 'zeus'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem "rvm-capistrano"
+  gem "capistrano-ext"
+  gem "seedbank"
 end
 
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'unicorn'
-gem 'capistrano'
 gem 'kaminari'
 
 #markdown renderer
