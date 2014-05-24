@@ -21,4 +21,15 @@ class Api::QuestionsController < Api::ApplicationController
     logger.error(e.message)
     render text: "Loading failed"
   end
+
+  def create
+    @question = Question.create(params[:question]) do |q|
+      q.html_content = $markdown.render(params[:question][:content])
+    end
+    if @question.errors.empty?
+      render json: {status: true}
+    else
+      render json: {status: false}
+    end
+  end
 end
