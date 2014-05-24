@@ -13,9 +13,13 @@ question_num = 10
           url: 'http://www.google.com'
     )
 
+    ans = Answer.create(content: "Right", flag: 1)
+    raise Exception, ans.errors.messages unless ans.errors.empty?
+    q.answers << ans
+
     (1..3).each do |idx2|
       flag = rand(2)
-      ans = Answer.create(content: "Test Ans #{idx2}", flag: flag)
+      ans = Answer.create(content: flag == 1 ? "Right" : "Wrong", flag: flag)
       raise Exception, ans.errors.messages unless ans.errors.empty?
       q.answers << ans
     end
