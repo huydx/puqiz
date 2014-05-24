@@ -58,3 +58,25 @@ puqiz
   ```
 
   Return: Rendered html page
+
+##Make question
+  Endpoint: POST *host/api/questions*
+
+  Must have params [id] [uid] + [token]
+
+  Another: post params as below:
+  ```
+  "question"=>
+    { "content"=>"sadadsad", 
+      "tag_id"=>"1", 
+      "time"=>"5", 
+      "url"=>"http://www.google.com", 
+      "level"=>"1", 
+      "answers_attributes"=>
+        { "0"=>{"content"=>"sadasd"}, 
+          "1"=>{"content"=>"sadad", "flag"=>"1"}, 
+          "2"=>{"content"=>"sadsadasd"}, 
+          "3"=>{"content"=>"dasdad"}}}
+
+  //note that flag of answers can be nothing or 0
+  ```
