@@ -18,11 +18,12 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question = Question.create(params[:question]) do |q|
       q.html_content = $markdown.render(params[:question][:content])
     end
-
     flash.now[:error] = @question.errors.messages if @question.errors
+    make_empty_answers
     render 'new'
   rescue Exception => e
     logger.error(e.message)
+    make_empty_answers
     render 'new'
   end
 
@@ -56,6 +57,10 @@ class Admin::QuestionsController < Admin::ApplicationController
     @timerange = Question::TIMERANGE
     @question = Question.find_by_id(params[:id]) if params[:id]
     @question ||= Question.new
+    make_empty_answers
+  end
+
+  def make_empty_answers
     (Question::ANSWERNUM - @question.answers.size).times {
       @question.answers.build
     }

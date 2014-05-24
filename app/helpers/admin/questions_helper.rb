@@ -26,9 +26,9 @@ module Admin::QuestionsHelper
   end
 
   def tag_content(id)
-    @tags ||= Tag.all.map {|t| [t.id, t.content]}
-    ret = @tags.find {|t| t[0] == id}
-    return ret[1] if ret
+    @tags_map ||= Tag.all.map {|t| {id: t.id, content: t.content}}
+    ret = @tags_map.find {|t| t[:id] == id }
+    return ret[:content] if ret
   end
 
   def default_level(object)

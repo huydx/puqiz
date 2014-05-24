@@ -18,10 +18,17 @@ class Question < ActiveRecord::Base
   validates :content, length: {minimum: 5}
   validates :level, inclusion: {in: (1..LEVELNUM)}
   validates :time, inclusion: {in: TIMERANGE}
+  validate :number_of_questions
+
   paginates_per 10 #paginate at admin page
 
   def after_initialize 
     return unless new_record?
     self.level = 1
+  end
+
+protected
+  def number_of_questions
+    errors.add(:base, "You must have at least two answers") if answers.size < 2
   end
 end
