@@ -2,9 +2,10 @@
   <h2><%= title %></h2>
   <%= error_view(flash.now[:error]).html_safe %>
   <%= form_for @question, url: path do |f| %>
-    内容：<%= f.text_area :content, rows: 3, cols: 10, id: "questionContent" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn", type: "button" %><br/>
+    内容：<%= f.text_area :content, rows: 10, cols: 30, id: "questionContent" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn", type: "button" %><br/>
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>
     時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
+    参照url：<%= f.text_area :url, rows: 1, cols: 35 %> <br/>
     レベル：<%= slider_view(Question::LEVELNUM, default_level(f.object)).html_safe %>
     <span id="levelNum"><%= default_level(f.object) %></span><br/>
     <%= f.hidden_field :level, value: default_level(f.object) %>
