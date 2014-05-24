@@ -34,8 +34,6 @@ class Admin::QuestionsController < Admin::ApplicationController
   def update
     @question = Question.find_by_id(params[:id])
     @question.update_attributes!(params[:question])
-    @question.html_content = $markdown.render(params[:question][:content])
-    @question.save
     flash.now[:error] = @question.errors.messages if @question.errors
     render 'edit'
   rescue Exception => e
@@ -52,11 +50,9 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   protected
   def prepare_edit_form_before
-    params[:question][:level] = params[:question][:level].to_i if params[:question] && params[:question][:level]
     @tags = Tag.all.map{|t| [t.content, t.id]}
     @timerange = Question::TIMERANGE
-    @question = Question.find_by_id(params[:id]) if params[:id]
-    @question ||= Question.new
+    @question = Question.find_by_id(params[:id]) || Question.new
     make_empty_answers
   end
 

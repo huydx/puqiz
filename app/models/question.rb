@@ -2,6 +2,7 @@ class Question < ActiveRecord::Base
   attr_accessible :content, :tag_id, :level, :time, :answers_attributes, :url
   has_many :answers, dependent: :destroy
   has_one :tag
+  before_save :create_html_content
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:content].blank? }
 
   LEVELNUM = 5
@@ -30,5 +31,9 @@ class Question < ActiveRecord::Base
 protected
   def number_of_questions
     errors.add(:base, "You must have at least two answers") if answers.size < 2
+  end
+
+  def create_html_content
+    self.html_content = $markdown.render(self.content)
   end
 end
