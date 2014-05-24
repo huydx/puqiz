@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140521153431) do
+ActiveRecord::Schema.define(:version => 20140524085439) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20140521153431) do
     t.integer  "level"
     t.integer  "time"
     t.string   "html_content"
+    t.string   "url"
   end
 
   create_table "tags", :force => true do |t|
