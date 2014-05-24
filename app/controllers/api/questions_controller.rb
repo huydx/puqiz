@@ -3,8 +3,9 @@ class Api::QuestionsController < Api::ApplicationController
   def index
     _tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
     _offset = (params[:offset] || 0).to_i
-    _limit = (params[:limit] || Question::QUESTION_PER_REQUEST).to_i
-    questions = Question.where(tag_id: _tag_id).limit(_limit).offset(_offset)
+    _level  = (params[:level] || Question::DEFAULT_LEVEL).to_i 
+    _limit  = (params[:limit] || Question::QUESTION_PER_REQUEST).to_i
+    questions = Question.where(tag_id: _tag_id, level: _level).limit(_limit).offset(_offset)
 
     render json: {status: true, data: questions.as_json(include: :answers, except: [:created_at, :updated_at])}
   rescue Exception => e

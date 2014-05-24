@@ -33,7 +33,7 @@ class Api::QuestionResultsController < Api::ApplicationController
     render json: {status: false} 
   end
 
-  private
+  protected
   def update_correct_question(result_params)
     result_params.merge!(result: "true", user_id: current_user.id)
     update_question_result(result_params)
@@ -52,7 +52,6 @@ class Api::QuestionResultsController < Api::ApplicationController
     end
   end
   
-  protected
   def update_user_point_and_degree
     update_user_point
     return update_user_degree(point)

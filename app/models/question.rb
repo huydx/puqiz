@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:content].blank? }
 
   LEVELNUM = 5
+  DEFAULT_LEVEL = 1
 
   TIMERANGE = [2, 3, 5, 10, 15]
   ANSWERNUM = 4
