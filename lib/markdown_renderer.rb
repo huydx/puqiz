@@ -10,8 +10,10 @@ class MarkdownRenderer
       Pygments.highlight(code, lexer: language.to_sym, options: {
         encoding: 'utf-8'
       })
+    rescue Exception => e
+      ##pygments fail with unknown lexer
+    end
   end
-end
  
   def initialize
     @markdown = Redcarpet::Markdown.new(HTMLwithPygments,
