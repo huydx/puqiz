@@ -11,6 +11,14 @@ class Question < ActiveRecord::Base
   TIMERANGE = [2, 3, 5, 10, 15]
   ANSWERNUM = 4
   QUESTION_PER_REQUEST = 20
+
+  LEVEL_SCORE_MAP = {
+    "1" => 50,
+    "2" => 90,
+    "3" => 150,
+    "4" => 200,
+    "5" => 300
+  }
   
   scope :with_answers, lambda { includes(:answers) }
 

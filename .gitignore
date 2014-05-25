@@ -5,6 +5,8 @@ capybara-*.html
 /tmp
 /db/*.sqlite3
 /public/system
+/config/database.yml
+/config/database.yml.local
 /coverage/
 /spec/tmp
 **.orig

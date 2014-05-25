@@ -19,7 +19,7 @@ group :development do
   gem 'zeus'
   gem 'capistrano'
   gem 'capistrano-rails'
-  gem "rvm-capistrano"
+  gem 'capistrano-rvm'
   gem "capistrano-ext"
   gem "seedbank"
 end

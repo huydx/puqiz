@@ -11,15 +11,17 @@ class Api::QuestionResultsController < Api::ApplicationController
   def batch_create
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
-    point = 0
+    @point = 0
 
     unless correct_questions.empty?
       correct_questions.each do |q|
+        @point = @point + Question::LEVEL_SCORE_MAP[q.level.to_s]
         update_correct_question(ActiveSupport::HashWithIndifferentAccess.new(q))
       end
     end
     
     if failed_question
+      @point = @point - Question::LEVEL_SCORE_MAP[q.level.to_s]
       update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
     end
     
@@ -54,14 +56,14 @@ class Api::QuestionResultsController < Api::ApplicationController
   
   def update_user_point_and_degree
     update_user_point
-    return update_user_degree(point)
+    return update_user_degree
   end
 
   def update_user_point
-
+    current_user.increment_point!(@point)
   end
 
-  def update_user_degree(point)
-    
+  def update_user_degree
+    return Degree.update_for_user!(current_user) 
   end
 end
