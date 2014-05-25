@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def normalize_point
-    self.point = self.point < 0 ? 0 : self.point
+  def normalize_point!
+    current_point = self.point.to_i
+    self.point = current_point <= 0 ? 0 : current_point
   end
 end

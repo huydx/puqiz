@@ -12,9 +12,10 @@ set :user_sudo, false
 set :current_rev, `git show --format='%H' -s`.chomp
 set :branch, "master"
 set :unicorn_config,  "config/unicorn.rb"
+set :linked_files, %w{config/database.yml}
 
 namespace :deploy do
   task :after_symlink do
-    run "ln -s /home/deploy/config/puqiz/database.yml #{current_path}/config/database.yml"
+    execute "ln -s /home/deploy/config/puqiz/database.yml #{current_path}/config/database.yml"
   end
 end

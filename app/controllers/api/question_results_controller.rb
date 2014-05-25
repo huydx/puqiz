@@ -1,6 +1,4 @@
 class Api::QuestionResultsController < Api::ApplicationController
-  after_filter :update_user_score_and_point
-
   def create
     qid = params[:question_id]
     uid = current_user.id
@@ -12,26 +10,25 @@ class Api::QuestionResultsController < Api::ApplicationController
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
     @point = 0
-
     unless correct_questions.empty?
       correct_questions.each do |q|
-        @point = @point + Question::LEVEL_SCORE_MAP[q.level.to_s]
+        @point = @point + Question::LEVEL_SCORE_MAP[q['level'].to_s]
         update_correct_question(ActiveSupport::HashWithIndifferentAccess.new(q))
       end
     end
     
     if failed_question
-      @point = @point - Question::LEVEL_SCORE_MAP[q.level.to_s]
+      @point = @point - Question::LEVEL_SCORE_MAP[failed_question['level'].to_s]
       update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
     end
     
     if new_degree = update_user_point_and_degree
-      render json: {status: true, data: {degree: new_degree.type}} 
+      render json: {status: true, data: {degree: new_degree}} 
     else 
       render json: {status: false} 
     end
   rescue Exception => e
-    logger.error(e.message)
+    logger.error(e.backtrace)
     render json: {status: false} 
   end
 
