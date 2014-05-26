@@ -11,7 +11,7 @@ set :user, 'deploy'
 set :user_sudo, false
 set :current_rev, `git show --format='%H' -s`.chomp
 set :branch, "master"
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml initializers/secret_token.rb}
 set :default_shell, '/bin/bash -l'
 
 namespace :deploy do
