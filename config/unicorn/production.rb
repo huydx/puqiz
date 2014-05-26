@@ -1,5 +1,5 @@
 worker_processes 3
-app_directory = "/usr/www/puqiz/current"
+app_directory = "/var/www/puqiz/current"
 working_directory app_directory
 listen 5000, :tcp_nopush => true
 pid "/tmp/unicorn_puqiz.pid"
