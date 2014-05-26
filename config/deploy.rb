@@ -6,14 +6,12 @@ set :scm, :git
 
 set :rvm_ruby_string, 'ruby-2.0.0-p481'
 set :rvm_type, :user
-set :rvm_path, "/usr/local/rvm"
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 set :user, 'deploy'
 set :user_sudo, false
 set :current_rev, `git show --format='%H' -s`.chomp
 set :branch, "master"
 set :linked_files, %w{config/database.yml}
-set :unicorn_config, 'config/unicorn.rb'
 set :default_shell, '/bin/bash -l'
 
 namespace :deploy do
@@ -34,21 +32,22 @@ namespace :deploy do
   desc "Start unicorn server"
   task :start do
     on roles(:app) do
-      execute "cd #{fetch(:current_path)} && RVM_BIN_PATH=~/.rvm/bin ~/.rvm/bin/rvm default do bundle exec unicorn_rails -c #{fetch(:unicorn_config)} -E #{fetch(:rails_env)} -D"
+      execute "cd #{fetch(:current_path)} bundle exec unicorn_rails -c #{fetch(:unicorn_config)} -E #{fetch(:rails_env)} -D"
     end
   end
 
   desc "Restart unicorn server"
   task :restart do
     on roles(:app) do
-      execute "kill -USR2 `cat #{pid_file}`"
+      print execute "`cat #{fetch(:pid_file)}`"
+      execute "kill -USR2 `cat #{fetch(:pid_file)}`"
     end
   end
 
   desc "Reload unicorn server"
   task :reload do
     on roles(:app) do
-      run "kill -HUP `cat #{pid_file}`"
+      execute "kill -HUP `cat #{fetch(:pid_file)}`"
     end
   end
 
