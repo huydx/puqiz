@@ -1,8 +1,9 @@
 worker_processes 3
 app_directory = "/var/www/puqiz/current"
 working_directory app_directory
-listen 5000, :tcp_nopush => true
-pid "/tmp/unicorn_puqiz.pid"
+
+pid "#{app_directory}/tmp/pids/unicorn.pid"
+listen "#{app_directory}/tmp/pids/unicorn.sock"
 
 stderr_path "#{app_directory}/log/unicorn_production.log"
 stdout_path "#{app_directory}/log/unicorn_production.log"

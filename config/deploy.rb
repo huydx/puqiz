@@ -11,8 +11,12 @@ set :user, 'deploy'
 set :user_sudo, false
 set :current_rev, `git show --format='%H' -s`.chomp
 set :branch, "master"
-set :linked_files, %w{config/database.yml initializers/secret_token.rb}
+set :linked_files, %w{config/database.yml config/initializers/secret_token.rb}
+set :linked_dirs, %w{tmp/pids}
 set :default_shell, '/bin/bash -l'
+
+set :unicorn_pid, "/var/www/puqiz/current/tmp/pids/unicorn.pid"
+set :unicorn_config_path, 'config/unicorn/production.rb'
 
 namespace :deploy do
   desc "Create database and database user"
@@ -27,7 +31,6 @@ namespace :deploy do
       execute "mysql --user=root --password=#{fetch(:db_root_password)} -e \"GRANT ALL PRIVILEGES ON #{fetch(:db_name)}.* TO '#{fetch(:db_user)}'@'localhost' IDENTIFIED BY '#{fetch(:db_pass)}' WITH GRANT OPTION\""
     end
   end
-
 
   desc "Start unicorn server"
   task :start do

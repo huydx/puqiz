@@ -21,6 +21,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', git: 'git@github.com:capistrano/rvm.git'
   gem "capistrano-ext", require: false
+  gem 'capistrano3-unicorn'
   gem "seedbank"
 end
 
