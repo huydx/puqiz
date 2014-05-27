@@ -22,8 +22,8 @@ class Api::QuestionResultsController < Api::ApplicationController
       update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
     end
     
-    if new_degree = update_user_point_and_degree
-      render json: {status: true, data: {degree: new_degree}} 
+    if new_degree_and_point = update_user_point_and_degree
+      render json: {status: true, data: new_degree_and_point} 
     else 
       render json: {status: false} 
     end
@@ -52,12 +52,11 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
   
   def update_user_point_and_degree
-    update_user_point
-    return update_user_degree
+    return {point: update_user_point, degree: update_user_degree}
   end
 
   def update_user_point
-    current_user.increment_point!(@point)
+    return current_user.increment_point!(@point)
   end
 
   def update_user_degree

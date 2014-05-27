@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   
   def increment_point!(increment_point)
     self.point = self.point + increment_point.to_i
-    save
+    save and return self.point
   end
 
   def generate_token!
