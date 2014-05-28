@@ -24,19 +24,9 @@ Puqiz::Application.routes.draw do
     end
   end
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
   get 'log_out', to: "admin/user_sessions#destroy"
+
+  get 'analytic/ranking', to: "api/analytic#ranking_all"
+
   root :to => 'admin::questions#new'
 end

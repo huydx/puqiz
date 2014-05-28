@@ -7,6 +7,13 @@ class Degree < ActiveRecord::Base
   validates :type, inclusion: {in: (1..5)}
   before_save :clean_param!
   after_initialize :set_default_values
+  
+  scope :top, lambda { |tagid, _limit, _offset|
+    where(tag_id: tagid)
+    .order("accumulate_point desc")
+    .limit(_limit)
+    .offset(_offset)
+  }
 
   module TYPE
     BEGINNER = 1
@@ -65,5 +72,6 @@ class Degree < ActiveRecord::Base
     return unless new_record?
     self.point = 0
     self.accumulate_point = 0
+    self.type = TYPE::DEFAULT
   end
 end

@@ -65,6 +65,7 @@ puqiz
   Must have params [id] [uid] + [token]
 
   Another: post params as below:
+  
   ```
   "question"=>
     { "content"=>"sadadsad", 
@@ -79,4 +80,18 @@ puqiz
           "3"=>{"content"=>"dasdad"}}}
 
   //note that flag of answers can be nothing or 0
+  ```
+  
+##Analytic
+  Endpoint: POST *host/api/analytic/ranking*
+  
+  Must have params [id] [uid] [tag_id]
+  
+  Option params [offset] [limit]
+  
+  ```
+  [{"id"=>1188, "name"=>"user_1181", "provider"=>"twitter"},
+ {"id"=>2919, "name"=>"user_2912", "provider"=>"twitter"},
+ {"id"=>5147, "name"=>"user_5140", "provider"=>"twitter"},
+ {"id"=>9719, "name"=>"user_9712", "provider"=>"twitter"}]
   ```

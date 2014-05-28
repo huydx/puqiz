@@ -1,13 +1,13 @@
-question_num = 500
-
+question_num = 50000
 (1..question_num).each do |idx|
+  tag_id = rand(Tag.count)+1
   begin
     level = (idx % Question::LEVELNUM) + 1
-    time = Question::TIMERANGE[rand(Question::TIMERANGE.length)]
+    time = rand(Question::TIMERANGE.end) + 1
 
     q = Question.new(
           content: "##Test Question Num #{idx}",
-          tag_id: Tag.find_by_content("Python").id,
+          tag_id: tag_id,
           level: level,
           time: time,
           url: 'http://www.google.com'
