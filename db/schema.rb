@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140528154115) do
+ActiveRecord::Schema.define(:version => 20140528161737) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -57,13 +57,13 @@ ActiveRecord::Schema.define(:version => 20140528154115) do
   add_index "question_results", ["user_id"], :name => "index_question_results_on_user_id"
 
   create_table "questions", :force => true do |t|
-    t.string   "content"
+    t.string   "content",      :limit => 2000
     t.integer  "tag_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "level"
     t.integer  "time"
-    t.string   "html_content"
+    t.string   "html_content", :limit => 2000
     t.string   "url"
   end
 
