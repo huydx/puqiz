@@ -52,14 +52,13 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
   
   def update_user_point_and_degree
-    return {point: update_user_point, degree: update_user_degree}
+    current_degree.increment_point_by!(@point)
+    return {point: current_degree.point, degree: current_degree.type}
   end
 
-  def update_user_point
-    return current_user.increment_point!(@point)
-  end
-
-  def update_user_degree
-    return Degree.update_for_user!(current_user) 
+  protected
+  def current_degree
+    tag_id = params[:tag_id] || Tag::DEFAULT_TAG
+    Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
   end
 end

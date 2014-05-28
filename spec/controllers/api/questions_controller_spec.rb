@@ -17,8 +17,7 @@ describe Api::QuestionsController do
     it "should return status success with correct params" do
       user = User.create!(token: "testtoken", provider: "facebook", name: "test", uuid: "222")
       get :index, uid: user.id, token: user.token 
-      expected_status = "success"
-      JSON.parse(response.body)["status"].should == "success"
+      JSON.parse(response.body)["status"].should == true
     end
   end
 end

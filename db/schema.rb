@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140524085439) do
+ActiveRecord::Schema.define(:version => 20140528112915) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20140524085439) do
     t.integer  "type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "point"
   end
 
   create_table "question_results", :force => true do |t|
@@ -88,7 +89,6 @@ ActiveRecord::Schema.define(:version => 20140524085439) do
     t.string   "token"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "point"
   end
 
 end

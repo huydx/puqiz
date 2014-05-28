@@ -1,9 +1,10 @@
 class Degree < ActiveRecord::Base
   self.inheritance_column = "type_inheritance"
 
-  attr_accessible :tag_id, :type, :user_id
+  attr_accessible :tag_id, :type, :user_id, :point
   validates :type, inclusion: {in: (1..5)}
-  before_save :clean_param
+  before_save :clean_param!
+  after_initialize :set_default_values
 
   module TYPE
     BEGINNER = 1
@@ -22,25 +23,37 @@ class Degree < ActiveRecord::Base
     {id: 5, degree: TYPE::LEGENDARY, score: 5000}
   ]
 
-  def self.update_for_user!(user_instance)
-    point = user_instance.point
+  def update_new_degree
     new_deg_type = TYPE::LEGENDARY
     SCORETABLE.each do |degree_map|
-      if point <= degree_map[:score]
+      if self.point <= degree_map[:score]
         new_deg_type = degree_map[:degree] and break
       end
     end
-    current_deg = Degree.find_by_user_id(user_instance.id)
-    return current_deg.type if current_deg.type == new_deg_type
-    current_deg.update_attribute(:type, new_deg_type)
-    current_deg.save
-    return new_deg_type
+
+    self.type = new_deg_type if new_deg_type != self.type
   rescue Exception => e
-    logger.error(e.backtrace)
+    logger.error(e.backtrace.join("\n"))
+  end
+
+  def increment_point_by!(increment_point)
+    self.point = self.point.to_i + increment_point.to_i
+    update_new_degree
+    save
   end
 
   protected
-  def clean_param
+  def clean_param!
     self.type = (type.nil? || type == 0) ? TYPE::DEFAULT : type.to_i
+    normalize_point!
+  end
+
+  def normalize_point!
+    self.point = point.to_i < 0 ? 0 : point
+  end
+
+  def set_default_values
+    return unless new_record?
+    self.point = 0
   end
 end
