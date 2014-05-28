@@ -38,6 +38,11 @@ class UsersController < ApplicationController
   
   def verified_user_params
     #do some verify
-    {name: params["name"], provider: params["provider"], uuid: params["uuid"]}
+    {
+      name: params["name"], 
+      provider: params["provider"], 
+      uuid: params["uuid"],
+      avatar: params["avatar"]
+    }
   end
 end

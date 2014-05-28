@@ -6,6 +6,8 @@ puqiz
   Endpoint: **host/users**
   
   Must have params: [name] + [provider]<twitter|facebook> + [uuid]
+
+  Option params: [avatar]
   
   Return:
   ```
