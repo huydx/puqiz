@@ -20,6 +20,10 @@ module Admin::QuestionsHelper
     view
   end
 
+  def notice_view(notice)
+    view = "<span class='label label-notice'> #{notice}</span><br/>"
+  end
+
   def shorten(text, max_len)
     return text if text.length <= max_len
     return "#{text[0..max_len-1]}..."

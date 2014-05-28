@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
   LEVELNUM = 5
   DEFAULT_LEVEL = 1
 
-  TIMERANGE = [2, 3, 5, 10, 15]
+  TIMERANGE = (1..60) 
   ANSWERNUM = 4
   QUESTION_PER_REQUEST = 20
 
@@ -28,6 +28,7 @@ class Question < ActiveRecord::Base
   validates :level, inclusion: {in: (1..LEVELNUM)}
   validates :time, inclusion: {in: TIMERANGE}
   validate :number_of_questions
+  validate :has_correct_answers
 
   paginates_per 10 #paginate at admin page
 
@@ -38,7 +39,14 @@ class Question < ActiveRecord::Base
 
 protected
   def number_of_questions
-    errors.add(:base, "You must have at least two answers") if answers.size < 2
+    msg = "You must have at least two answers"
+    errors.add(:base, msg) if answers.size < 2
+  end
+
+  def has_correct_answers
+    msg = "You must have at least one correct answers"
+    correct_answers = answers.find_all { |ans| ans.flag.to_i == 1 }
+    errors.add(:base, msg) if !correct_answers || correct_answers.size < 1
   end
 
   def create_html_content

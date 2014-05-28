@@ -23,9 +23,7 @@ class Api::QuestionsController < Api::ApplicationController
   end
 
   def create
-    @question = Question.create(params[:question]) do |q|
-      q.html_content = $markdown.render(params[:question][:content])
-    end
+    @question = Question.create(params[:question])
     if @question.errors.empty?
       render json: {status: true}
     else

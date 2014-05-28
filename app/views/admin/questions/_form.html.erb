@@ -1,6 +1,7 @@
 <div class="questionForm">
   <h2><%= title %></h2>
   <%= error_view(flash.now[:error]).html_safe %>
+  <%= notice_view(flash.now[:notice]).html_safe %>
   <%= form_for @question, url: path do |f| %>
     内容：<%= f.text_area :content, rows: 10, cols: 30, id: "questionContent" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn", type: "button" %><br/>
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>

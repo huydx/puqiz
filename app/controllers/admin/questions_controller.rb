@@ -19,10 +19,16 @@ class Admin::QuestionsController < Admin::ApplicationController
       q.html_content = $markdown.render(params[:question][:content])
     end
     flash.now[:error] = @question.errors.messages if @question.errors
-    make_empty_answers
-    render 'new'
+    if flash.now[:error].empty?
+      flash.now[:notice] = "Success!"
+      render 'show' and return 
+    else
+      make_empty_answers
+      render 'new' and return
+    end
   rescue Exception => e
     logger.error(e.message)
+    flash.now[:error] = "Error!" 
     make_empty_answers
     render 'new'
   end
