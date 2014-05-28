@@ -1,7 +1,9 @@
 class Degree < ActiveRecord::Base
   self.inheritance_column = "type_inheritance"
-
-  attr_accessible :tag_id, :type, :user_id, :point
+  
+  # point use for level-calulate purpose
+  # accumulate_point use for user xp(ranking purpose)
+  attr_accessible :tag_id, :type, :user_id, :point, :accumulate_point
   validates :type, inclusion: {in: (1..5)}
   before_save :clean_param!
   after_initialize :set_default_values
@@ -30,15 +32,21 @@ class Degree < ActiveRecord::Base
         new_deg_type = degree_map[:degree] and break
       end
     end
-
-    self.type = new_deg_type if new_deg_type != self.type
+    if new_deg_type != self.type
+      self.type = new_deg_type 
+      return true
+    else
+      return false
+    end
   rescue Exception => e
     logger.error(e.backtrace.join("\n"))
+    return false
   end
 
   def increment_point_by!(increment_point)
     self.point = self.point.to_i + increment_point.to_i
-    update_new_degree
+    self.accumulate_point = self.accumulate_point.to_i + increment_point.to_i
+    self.point = 0 if update_new_degree #reset if new level is set
     save
   end
 
@@ -50,10 +58,12 @@ class Degree < ActiveRecord::Base
 
   def normalize_point!
     self.point = point.to_i < 0 ? 0 : point
+    self.accumulate_point = accumulate_point.to_i < 0 ? 0 : accumulate_point
   end
 
   def set_default_values
     return unless new_record?
     self.point = 0
+    self.accumulate_point = 0
   end
 end
