@@ -19,7 +19,7 @@ group :development do
   gem 'zeus'
   gem 'capistrano', require: false
   gem 'capistrano-rails', require: false
-  gem 'capistrano-rvm', git: 'git@github.com:capistrano/rvm.git'
+  gem 'capistrano-rvm'
   gem "capistrano-ext", require: false
   gem 'capistrano3-unicorn'
   gem "seedbank"
