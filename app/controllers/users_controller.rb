@@ -27,12 +27,7 @@ class UsersController < ApplicationController
   def render_user_json_success
     render json: {
       status: true, 
-      data: {
-        id: @user.id, 
-        name: @user.name, 
-        token: @user.token, 
-        provider: @user.provider
-      }
+      data: @user.as_json(except: [:created_at, :updated_at, :token, :uuid])
     }
   end
   
