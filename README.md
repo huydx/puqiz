@@ -92,8 +92,8 @@ puqiz
   Option params [offset] [limit]
   
   ```
-  [{"id"=>1188, "name"=>"user_1181", "provider"=>"twitter"},
- {"id"=>2919, "name"=>"user_2912", "provider"=>"twitter"},
- {"id"=>5147, "name"=>"user_5140", "provider"=>"twitter"},
- {"id"=>9719, "name"=>"user_9712", "provider"=>"twitter"}]
+  [{"id"=>1188, "name"=>"user_1181", "provider"=>"twitter", "avatar"=> "xxx", "accumulate_point" => 1234},
+ {"id"=>2919, "name"=>"user_2912", "provider"=>"twitter", "avatar"=> "xxx", "accumulate_point" => 1234},
+ {"id"=>5147, "name"=>"user_5140", "provider"=>"twitter", "avatar"=> "xxx", "accumulate_point" => 1234},
+ {"id"=>9719, "name"=>"user_9712", "provider"=>"twitter", "avatar"=> "xxx", "accumulate_point" => 1234}]
   ```
