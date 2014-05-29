@@ -26,7 +26,7 @@ Puqiz::Application.routes.draw do
 
   get 'log_out', to: "admin/user_sessions#destroy"
 
-  post 'api/analytic/ranking', to: "api/analytic#ranking_all"
+  get 'api/analytic/ranking', to: "api/analytic#ranking_all"
 
   root :to => 'admin::questions#new'
 end
