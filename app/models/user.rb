@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name, :uuid
   validates_presence_of :name, :uuid, :provider
 
+  scope :sort_with_array, lambda { |ids| 
+    where(id: ids)
+    .order("field(id, #{ids.join(',')})")
+  }
+
   def generate_token!
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)

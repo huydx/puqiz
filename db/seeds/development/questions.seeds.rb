@@ -1,4 +1,4 @@
-question_num = 50000
+question_num = 10000
 (1..question_num).each do |idx|
   tag_id = rand(Tag.count)+1
   begin

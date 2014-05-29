@@ -8,8 +8,13 @@ class Api::AnalyticController < Api::ApplicationController
     raise Exception, "Must have tag_id" unless params[:tag_id]
     tag_id  = params[:tag_id].to_i
 
-    top_ids = Degree.top(tag_id, limit, offset).collect(&:user_id)
-    users =  User.find(top_ids, order: "field(id, #{top_ids.join(',')})")
+    top_degrees = Degree.top(tag_id, limit, offset)
+    uids = top_degrees.collect(&:user_id)
+    points = top_degrees.collect(&:accumulate_point)
+
+    users =  User.sort_with_array(uids)
+    users.zip(points).map {|u,p| u["accumulate_point"] = p}
+
     render json: {status: true, data: users.as_json(except: [:created_at, :updated_at, :token, :uuid])}
   rescue Exception=>e
     logger.error(e.backtrace.join("\n"))
