@@ -3,7 +3,7 @@ class Degree < ActiveRecord::Base
   
   # point use for level-calulate purpose
   # accumulate_point use for user xp(ranking purpose)
-  attr_accessible :tag_id, :type, :user_id, :point, :accumulate_point, :avatar
+  attr_accessible :tag_id, :type, :user_id, :point, :accumulate_point
 
   validates :type, inclusion: {in: (1..5)}
   before_save :clean_param!
