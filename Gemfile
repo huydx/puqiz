@@ -23,12 +23,15 @@ group :development do
   gem "capistrano-ext", require: false
   gem 'capistrano3-unicorn'
   gem "seedbank"
+  gem "binding_of_caller"
 end
 
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'unicorn'
 gem 'kaminari'
+gem 'rmagick'
+gem 'carrierwave'
 
 #markdown renderer
 gem 'markdown-rails'

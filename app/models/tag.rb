@@ -1,5 +1,7 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :image
   validates_uniqueness_of :content 
   DEFAULT_TAG = 1
+
+  mount_uploader :image, TagImageUploader
 end

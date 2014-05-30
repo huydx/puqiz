@@ -1,4 +1,6 @@
 class Api::QuestionResultsController < Api::ApplicationController
+  before_filter :init_current_degree
+
   def create
     qid = params[:question_id]
     uid = current_user.id
@@ -23,12 +25,13 @@ class Api::QuestionResultsController < Api::ApplicationController
     end
     
     if new_degree_and_point = update_user_point_and_degree
-      render json: {status: true, data: new_degree_and_point} 
+      result = make_return_hash
+      render json: {status: true, data: result.as_json} 
     else 
       render json: {status: false} 
     end
   rescue Exception => e
-    logger.error(e.backtrace)
+    logger.error(e.backtrace.join('\n'))
     render json: {status: false} 
   end
 
@@ -52,13 +55,23 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
   
   def update_user_point_and_degree
-    current_degree.increment_point_by!(@point)
-    return {point: current_degree.point, degree: current_degree.type}
+    return @current_degree.increment_point_by!(@point)
   end
 
   protected
-  def current_degree
+  def init_current_degree
     tag_id = params[:tag_id] || Tag::DEFAULT_TAG
-    Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
+    @current_degree = Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
+  end
+
+  def make_return_hash
+    {
+      increment_point:          @point,
+      accumulate_point:         @current_user.accumulate_point,
+      level_point:              @current_user.point,
+      point_until_next_level:   @current_degree.point_until_next_level,
+      point_until_down_level:   @current_degree.point_until_down_level,
+      degree:                   @current_degree.type
+    }
   end
 end

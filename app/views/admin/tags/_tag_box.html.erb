@@ -1,0 +1,7 @@
+<tr class="tagFirstRow">
+  <td><%= tag.id %></td>
+  <td class="content"><%= tag.content %></td>
+  <td><%= image_tag tag.image, size: '50x50' %> </td>
+  <td><%= link_to "編集", edit_admin_tag_path(tag.id) %></td>
+  <td><%= link_to "削除", admin_tag_delete_path(tag.id) %></td>
+</tr>

@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :token, :uuid, :avatar
-  before_create :generate_token!
+  before_create :generate_token
   after_create :set_default_degree
+  before_update :generate_token
 
   has_many :degrees
 
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
     .order("field(id, #{ids.join(',')})")
   }
 
-  def generate_token!
+  def generate_token
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)
       break random_token unless User.exists?(token: random_token)

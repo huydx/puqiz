@@ -1,0 +1,12 @@
+<table class="tagTable">
+  <tr class="tagFirstRow">
+    <td>ID</td>
+    <td class="content">タグ名</td>
+    <td>画像</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% @tags.each do |t| %>
+    <%= render partial: "tag_box", locals: {tag: t} %><br/>
+  <% end %>
+</table>

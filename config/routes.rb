@@ -5,6 +5,9 @@ Puqiz::Application.routes.draw do
     end
     resources :user_sessions
     resources :users
+    resources :tags do
+      get 'delete'
+    end
     post 'markdown', to: "markdown#rendering"
   end
 

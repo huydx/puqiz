@@ -28,3 +28,4 @@ config/secrets.yml
 *.swo
 
 config/deploy/production.rb
+/public/uploads
