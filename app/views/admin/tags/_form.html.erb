@@ -3,7 +3,7 @@
   <h2><%= title %></h2>
   <%= form_for @tag, url: path do |f| %>
     内容：<%= f.text_area :content, rows: 1, cols: 10 %><br/>
-    画像：<%= image_tag f.object.image, size: '50x50' %><br/>
+    画像：<%= safe_tag_image f.object.image, size: '50x50' %><br/>
     新しい画像アップロード：<%= f.file_field :image %><br/>
     <%= f.submit submit_btn if submit_btn %>
   <% end %>
