@@ -12,7 +12,7 @@ set :user_sudo, false
 set :current_rev, `git show --format='%H' -s`.chomp
 set :branch, "master"
 set :linked_files, %w{config/database.yml config/initializers/secret_token.rb}
-set :linked_dirs, %w{tmp/pids}
+set :linked_dirs, %w{public/uploads tmp/pids}
 set :default_shell, '/bin/bash -l'
 
 set :unicorn_pid, "/var/www/puqiz/current/tmp/pids/unicorn.pid"
