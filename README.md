@@ -85,7 +85,7 @@ puqiz
   ```
   
 ##Analytic
-  Endpoint: POST *host/api/analytic/ranking*
+  Endpoint: GET *host/api/analytic/ranking*
   
   Must have params [id] [uid] [tag_id]
   
