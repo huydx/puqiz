@@ -5,11 +5,11 @@ class Api::QuestionsController < Api::ApplicationController
     _offset = (params[:offset] || 0).to_i
     _level  = (params[:level] || Question::DEFAULT_LEVEL).to_i 
     _limit  = (params[:limit] || Question::QUESTION_PER_REQUEST).to_i
-    questions = Question.where(tag_id: _tag_id, level: _level).limit(_limit).offset(_offset)
+    questions = Question.includes(:answers).where(tag_id: _tag_id, level: _level).limit(_limit).offset(_offset)
 
     render json: {status: true, data: questions.as_json(include: :answers, except: [:created_at, :updated_at])}
   rescue Exception => e
-    logger.error(e.message)
+    logger.error(e.backtrace.join('\n'))
     render json: {status: false}
   end
 
