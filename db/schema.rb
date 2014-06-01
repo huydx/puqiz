@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529140359) do
+ActiveRecord::Schema.define(:version => 20140601011150) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20140529140359) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "role"
+  end
+
+  create_table "answer_reviews", :force => true do |t|
+    t.string   "content"
+    t.integer  "flag"
+    t.integer  "question_review_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "answers", :force => true do |t|
@@ -55,6 +63,16 @@ ActiveRecord::Schema.define(:version => 20140529140359) do
 
   add_index "question_results", ["question_id"], :name => "index_question_results_on_question_id"
   add_index "question_results", ["user_id"], :name => "index_question_results_on_user_id"
+
+  create_table "question_reviews", :force => true do |t|
+    t.string   "content"
+    t.integer  "tag_id"
+    t.integer  "level"
+    t.integer  "time"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "questions", :force => true do |t|
     t.string   "content",      :limit => 2000

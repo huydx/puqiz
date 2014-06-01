@@ -4,6 +4,7 @@ gem 'rails', '3.2.11'
 gem 'mysql2'
 gem 'authlogic'
 gem 'scrypt'
+gem 'omniauth-twitter'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

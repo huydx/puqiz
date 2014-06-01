@@ -8,7 +8,14 @@ Puqiz::Application.routes.draw do
     resources :tags do
       get 'delete'
     end
+    resources :question_reviews do
+      member do
+        post 'verify'
+      end
+      get 'delete'
+    end
     post 'markdown', to: "markdown#rendering"
+    get 'log_out', to: "user_sessions#destroy"
   end
 
   namespace :api do
@@ -19,6 +26,7 @@ Puqiz::Application.routes.draw do
       end
     end
     resources :tags
+    get 'analytic/ranking', to: 'analytic#ranking_ll'
   end
 
   resources :users do
@@ -27,9 +35,6 @@ Puqiz::Application.routes.draw do
     end
   end
 
-  get 'log_out', to: "admin/user_sessions#destroy"
-
-  get 'api/analytic/ranking', to: "api/analytic#ranking_all"
 
   root :to => 'admin::questions#new'
 end

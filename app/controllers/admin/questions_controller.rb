@@ -69,8 +69,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
   
   def prepare_index_view_before
-    page = params[:page].to_i if params[:page] and params[:page] =~ /^(\d)*/
-    page ||= 0
+    page = params[:page].to_i
     @questions = Question.page(page) 
     @tags = Tag.all.map{|t| [t.content, t.id]}
     @tags.prepend ["全部", 0]

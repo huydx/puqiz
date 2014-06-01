@@ -21,13 +21,4 @@ class Api::QuestionsController < Api::ApplicationController
     logger.error(e.message)
     render text: "Loading failed"
   end
-
-  def create
-    @question = Question.create(params[:question])
-    if @question.errors.empty?
-      render json: {status: true}
-    else
-      render json: {status: false}
-    end
-  end
 end

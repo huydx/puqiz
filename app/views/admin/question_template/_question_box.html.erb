@@ -1,0 +1,8 @@
+<tr class="questionRow">
+  <td><%= shorten(question.content, 50) %> </td>
+  <td><%= question.time %> </td>
+  <td><%= question.level %> </td>
+  <td><%= tag_content(question.tag_id) %> </td>
+  <td><%= link_to "編集", edit_admin_question_path(question.id) %> </td>
+  <td><%= link_to "削除", admin_question_delete_path(question.id) %> </td>
+</tr>

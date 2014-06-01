@@ -12,4 +12,9 @@ class TagImageUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+
+  def default_url
+    #use with assets pipeline
+    ActionController::Base.helpers.asset_path "default_tag_image.jpeg"
+  end
 end
