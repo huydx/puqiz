@@ -17,6 +17,13 @@ Puqiz::Application.routes.draw do
     post 'markdown', to: "markdown#rendering"
     get 'log_out', to: "user_sessions#destroy"
   end
+  
+  namespace :home do
+    match "/signout" => "sessions#destroy"
+    get "index" => "application#index"
+    get "register_information" => "application#register_information"
+  end
+  match "/auth/:provider/callback" => "home/sessions#create"
 
   namespace :api do
     resources :questions

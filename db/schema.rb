@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140601011150) do
+ActiveRecord::Schema.define(:version => 20140605143150) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20140601011150) do
     t.datetime "updated_at",       :null => false
     t.integer  "point"
     t.integer  "accumulate_point"
+  end
+
+  create_table "question_answers", :force => true do |t|
+    t.string   "content"
+    t.integer  "tag_id"
+    t.integer  "level"
+    t.integer  "time"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "question_results", :force => true do |t|
@@ -107,9 +117,10 @@ ActiveRecord::Schema.define(:version => 20140601011150) do
     t.string   "name"
     t.string   "uuid"
     t.string   "token"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "avatar",     :limit => 1000
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "avatar",            :limit => 1000
+    t.string   "persistence_token"
   end
 
 end
