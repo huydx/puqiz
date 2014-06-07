@@ -4,7 +4,9 @@ class Home::ApplicationController < ApplicationController
   before_filter :require_log_in, except: [:index, :register_information]
   layout "home/application"
   
-  def index; end
+  def index
+    redirect_to home_users_index_path if current_user
+  end
 
   def register_information; end
 

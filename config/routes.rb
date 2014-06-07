@@ -48,5 +48,5 @@ Puqiz::Application.routes.draw do
   end
 
 
-  root :to => 'admin::questions#new'
+  root :to => 'home::application#index'
 end
