@@ -51,16 +51,6 @@ ActiveRecord::Schema.define(:version => 20140607032054) do
     t.integer  "accumulate_point"
   end
 
-  create_table "question_answers", :force => true do |t|
-    t.string   "content"
-    t.integer  "tag_id"
-    t.integer  "level"
-    t.integer  "time"
-    t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "question_results", :force => true do |t|
     t.integer  "question_id"
     t.integer  "user_id"
