@@ -1,0 +1,57 @@
+// Place all the styles related to the admin/answers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+ *= require_self
+ *= require_tree .
+ */
+.questionForm {
+  position: absolute;
+  left: 20%;
+  margin: auto; 
+  float: left;
+  width: 70%;
+}
+
+.answerRow {
+  .answerInput {
+    display: inline;
+    margin-left: 20px;
+  }
+}
+table.questionTable {
+  margin-left: 50px;
+
+  tr.questionFirstRow {
+    td {
+      padding-bottom: 1em;
+      padding-right: 5em;
+    }
+    td.content {
+      width: 300px;
+    }
+  }
+  tr.questionRow {
+    td {
+      padding-bottom: 0.5em;
+    }
+  }
+}
+.iphone {
+  position: fixed;
+  right: 100px;
+  top: 10px;
+  background-image: image-url("iphone.png");
+  width: 375px;
+  height: 806px;
+
+  .markdownRender {
+    position: absolute;
+    top: 147px;
+    left: 27px;
+    width: 320px;
+    height: 568px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+  }
+}

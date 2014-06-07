@@ -1,7 +1,7 @@
 <div class="sectionTop">
   <div class="container">
     <div class="logo"></div>
-    <h2>プログラマーのためのクイズアプリ</h2>
+    <h1>プログラマーのためのクイズアプリ</h1>
     <ul class="sellingPoint">
       <li>Hundreds of topics</li>
       <li>Over 220,000 questions</li>
@@ -16,9 +16,29 @@
     <div class="loginBtn">
       <%= link_to "Sign in with Twitter", "/auth/twitter" %>
     </div>
-    <div class="iphone">
-
-    <div>
+    <div id="iphoneDiv">
+      <%= image_tag(asset_path('ios_sample_3.PNG'), size: '320x568', class: 'iphoneImg img0') %>
+      <%= image_tag(asset_path('ios_sample_2.PNG'), size: '320x568', class: 'iphoneImg img1') %>
+      <%= image_tag(asset_path('ios_sample_1.PNG'), size: '320x568', class: 'iphoneImg img2') %>
+    </div>
   </div>
 </div>
 
+<script type='text/javascript'>
+  $(document).ready(function() {
+    window.iphoneImgArray = $('.iphoneImg');
+    var length = window.iphoneImgArray.length;
+    console.log(length);
+    window.currentImgIndex = 0;
+
+    setInterval(function(){
+      var prevImgClass = ".img" + window.currentImgIndex;
+      window.currentImgIndex += 1;
+      window.currentImgIndex = window.currentImgIndex % length;
+      var nextImgClass = ".img" + window.currentImgIndex;
+      
+      $(nextImgClass).fadeIn('slow');
+      $(prevImgClass).fadeOut('slow');
+    }, 3000);
+  });
+</script>

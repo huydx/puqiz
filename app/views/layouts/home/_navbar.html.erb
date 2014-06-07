@@ -6,7 +6,7 @@
       </div>
       <div class="row user">
         <div class="row avatar">
-          <%= image_tag current_user.avatar, class: "row avatar_img" %>
+          <%= safe_tag_image current_user.avatar, class: "row avatar_img" %>
         </div>
         <div class="row name">
           <%= current_user.name %>

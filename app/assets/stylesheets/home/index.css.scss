@@ -1,5 +1,5 @@
 .sectionTop {
-  height: 500px;
+  height: 700px;
   background: #333333;
   box-shadow: inset 0px -10px 20px rgba(0,0,0,0.3);
   color: #fff;
@@ -23,16 +23,16 @@
     }
 
     .sellingPoint {
-      font-size: 18px;
+      font-size: 24px;
       line-height: 1.428571429;
       position: absolute;
-      top: 250px;
+      top: 270px;
       left: 215px;
     }
 
     .storeBtn {
       position: absolute;
-      top: 420px;
+      top: 520px;
       left: 190px;
 
       img {
@@ -51,9 +51,15 @@
       border: 2px solid #fff;
       border-radius: 6px;
       font-weight: 500;
+      height: 50px;
+      padding-top: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
 
       a {
         background: transparent;
+        vertical-align: middle;
+        color: #fff;
       }  
       
       :hover {
@@ -68,13 +74,21 @@
     }
 
     
-    .iphone {
+    #iphoneDiv {
       position: absolute;
       top: 100px;
-      left: 800px;
+      right: 120px;
       background-image: image-url("iphone.png");
       width: 375px;
       height: 806px;
+
+      .iphoneImg {
+        position: absolute;
+        top: 130px;
+        left: 26px;
+        width: 320px;
+        height: 568px;
+      }
     }
   }
 }

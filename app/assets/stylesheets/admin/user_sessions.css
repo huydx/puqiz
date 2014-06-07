@@ -1,12 +1,8 @@
 // Place all the styles related to the admin/answers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body {
-  background: none;
-}
-
-.questionView {
-  position: fixed;
-  top: 0;
-  left: 0;
+.loginForm {
+  position: absolute;
+  left: 20%;
+  margin: auto; 
 }

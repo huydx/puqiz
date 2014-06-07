@@ -4,12 +4,12 @@
 }
 
 .homeUserNav {
-  background: #ff5454;
+  background: #333333;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   -webkit-box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   font-family: 'Monaco';
   font-size: 14px;
-  color: #333333;
+  color: white;
   width: 100%;
   height: 50px;
   box-sizing: border-box;
@@ -46,6 +46,7 @@
       .avatar_img {
         border-radius: 50%;
         width: 30px;
+        height: 30px;
         border: 2px solid #fff;
         vertical-align: middle;
       }

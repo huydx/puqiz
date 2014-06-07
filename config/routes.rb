@@ -38,7 +38,7 @@ Puqiz::Application.routes.draw do
       end
     end
     resources :tags
-    get 'analytic/ranking', to: 'analytic#ranking_ll'
+    get 'analytic/ranking', to: 'analytic#ranking_all'
   end
 
   resources :users do
