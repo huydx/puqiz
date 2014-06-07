@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140605143150) do
+ActiveRecord::Schema.define(:version => 20140607032054) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -97,9 +97,10 @@ ActiveRecord::Schema.define(:version => 20140605143150) do
 
   create_table "tags", :force => true do |t|
     t.string   "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "image"
+    t.string   "explaination"
   end
 
   create_table "user_sessions", :force => true do |t|

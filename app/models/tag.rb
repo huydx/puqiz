@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :content, :image
+  attr_accessible :content, :image, :explaination
   validates_uniqueness_of :content 
   DEFAULT_TAG = 1
 

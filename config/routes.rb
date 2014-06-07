@@ -22,6 +22,11 @@ Puqiz::Application.routes.draw do
     match "/signout" => "sessions#destroy"
     get "index" => "application#index"
     get "register_information" => "application#register_information"
+    namespace :users do
+      get "index"
+      get "contribute_question"
+      get "contribute_guide"
+    end
   end
   match "/auth/:provider/callback" => "home/sessions#create"
 
