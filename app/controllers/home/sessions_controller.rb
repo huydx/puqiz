@@ -1,10 +1,12 @@
 class Home::SessionsController < Home::ApplicationController
+  skip_before_filter :require_log_in, only: [:create, :destroy]
+    
   def create
     auth_hash = request.env["omniauth.auth"]
     user = User.find_for_twitter_oauth(auth_hash)
     if user
       UserSession.create(user, true)
-      redirect_to home_index_path
+      redirect_to home_users_index_path
     else
       redirect_to home_register_information_path
     end

@@ -1,0 +1,80 @@
+.sectionTop {
+  height: 500px;
+  background: #333333;
+  box-shadow: inset 0px -10px 20px rgba(0,0,0,0.3);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Monaco";
+
+  .container {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    overflow: visible;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+
+    .logo {
+      width: 494px;
+      height: 153px;
+      background: url("https://dlebm0f040apo.cloudfront.net/public/f399d2/images/quizup-logo-big.svg");
+      background-size: 494px 153px;
+    }
+
+    .sellingPoint {
+      font-size: 18px;
+      line-height: 1.428571429;
+      position: absolute;
+      top: 250px;
+      left: 215px;
+    }
+
+    .storeBtn {
+      position: absolute;
+      top: 420px;
+      left: 190px;
+
+      img {
+        border: 2px solid #fff;
+        border-radius: 10px;
+        width: 250px;
+        height: 72px;
+      }
+    }
+
+    .loginBtn {
+      position: absolute;
+      top: 60px;
+      left: 600px;
+      box-sizing: border-box;
+      border: 2px solid #fff;
+      border-radius: 6px;
+      font-weight: 500;
+
+      a {
+        background: transparent;
+      }  
+      
+      :hover {
+        text-decoration: none;
+        text-color: white;
+      }
+
+      a:-webkit-any-link {
+        cursor: auto;
+        text-decoration: none;
+      }
+    }
+
+    
+    .iphone {
+      position: absolute;
+      top: 100px;
+      left: 800px;
+      background-image: image-url("iphone.png");
+      width: 375px;
+      height: 806px;
+    }
+  }
+}

@@ -1,6 +1,24 @@
-<% if current_user %>
-  Welcome <%= current_user.name %>!
-  <%= link_to "Sign Out", home_signout_path %>
-<% else %>
-  <%= link_to "Sign in with Twitter", "/auth/twitter" %>
-<% end %>
+<div class="sectionTop">
+  <div class="container">
+    <div class="logo"></div>
+    <h2>プログラマーのためのクイズアプリ</h2>
+    <ul class="sellingPoint">
+      <li>Hundreds of topics</li>
+      <li>Over 220,000 questions</li>
+      <li>Play against friends in <strong>real time</strong></li>
+      <li>And it’s free!</li>
+    </ul>
+    <div class="storeBtn apple">
+      <a href="https://itunes.apple.com/us/app/quizup-biggest-trivia-game/id718421443?mt=8&amp;uo=4" target="itunes_store">
+        <img src="https://dlebm0f040apo.cloudfront.net/public/f399d2/images/app-store-btn-big-en_US.png">
+      </a> 
+    </div>
+    <div class="loginBtn">
+      <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+    </div>
+    <div class="iphone">
+
+    <div>
+  </div>
+</div>
+

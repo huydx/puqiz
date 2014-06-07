@@ -1,8 +1,8 @@
 class Home::ApplicationController < ApplicationController
   protect_from_forgery
   helper_method :current_user
-  before_filter :require_log_in, exclude: [:index, :register_information]
-  layout false
+  before_filter :require_log_in, except: [:index, :register_information]
+  layout "home/application"
   
   def index; end
 
@@ -21,6 +21,7 @@ class Home::ApplicationController < ApplicationController
 
   def require_log_in
     unless current_user
+      redirect_to home_index_path
     end
   end
 end
