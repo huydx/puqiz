@@ -21,4 +21,14 @@ class Api::QuestionsController < Api::ApplicationController
     logger.error(e.message)
     render text: "Loading failed"
   end
+
+  def check_update
+    date    = params[:date]
+    tag_id  = params[:tag_id] || Tag::DEFAULT_TAG
+    asking_date       = ActiveSupport::TimeWithZone.new(asking_date)
+    recent_db_update  = RecentlyUpdateQuestion.find_by_tag_id(tag_id).updated_at
+    render json: {status: true, data: {is_update: recent_db_update > asking_date}}
+  rescue Exception => e
+    render json: {status: false}
+  end
 end

@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_one :tag
   before_save :create_html_content
+  before_save :touch_recently_update_question
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
 
   LEVELNUM = 5
@@ -51,5 +52,11 @@ protected
 
   def create_html_content
     self.html_content = $markdown.render(self.content)
+  end
+
+  def touch_recently_update_question
+    RecentlyUpdateQuestion.find_or_create_by(tag_id: self.tag_id) do |r|
+      r.question_id = self.id
+    end
   end
 end

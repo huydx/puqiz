@@ -31,13 +31,21 @@ Puqiz::Application.routes.draw do
   match "/auth/:provider/callback" => "home/sessions#create"
 
   namespace :api do
-    resources :questions
+    resources :questions do
+      collection do
+        get 'check_update'
+      end
+    end
     resources :question_results do
       collection do
         post 'batch_create'
       end
     end
-    resources :tags
+    resources :tags do
+      collection do
+        get 'check_update'
+      end
+    end
     get 'analytic/ranking', to: 'analytic#ranking_all'
   end
 
