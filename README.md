@@ -3,7 +3,7 @@ puqiz
 
 #API spec
 ##User create
-  Endpoint: **host/users**
+  Endpoint: POST **host/users**
   
   Must have params: [name] + [provider]<twitter|facebook> + [uuid]
 
@@ -12,7 +12,7 @@ puqiz
   Return:
   ```
     {
-      status: success | failed
+      status: true | false
       data:
       {id, name, provider, token}
     }
@@ -21,7 +21,7 @@ puqiz
 ##User authenticate
   Must have params: [uid] <user id, got at first time request>, [token] <user token>
 ##Question list
-  Endpoint: **host/api/questions**
+  Endpoint: GET **host/api/questions**
 
   Must have params: [uid] + [token] + [tag_id]
 
@@ -30,23 +30,39 @@ puqiz
   Returns:
   ```
     {
-      status: success | failed
+      status: true | false
       data:
         Questions{id, level, tag_id, time, content + Answers : [{id, content, result}..]}
     }
   ```
+  
+##Question recently update
+  Endpoint: GET **host/api/questions/check_update**
+  
+  Must have params: [uid] + [token] + [tag_id] + [date]
+  
+  Returns:
+  ```
+  {
+    status: true | false
+    data: 
+      is_update: true | false
+  }
+  
+  ```
 
 ##Tag list
-  Endpoint: **host/api/tags**
+  Endpoint: GET **host/api/tags**
 
-  Must have params: [uid] + [token]
+  Must have params: [uid] + [token] + [date]
 
   Returns:
   ```
     {
-      status: success | failed
-      data:
+      status: true | false
+      data: [
         Tags {id, content}
+      ]
     }
   ```
 

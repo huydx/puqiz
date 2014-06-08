@@ -55,7 +55,7 @@ protected
   end
 
   def touch_recently_update_question
-    RecentlyUpdateQuestion.find_or_create_by(tag_id: self.tag_id) do |r|
+    RecentlyUpdateQuestion.find_or_create_by_tag_id(self.tag_id) do |r|
       r.question_id = self.id
     end
   end
