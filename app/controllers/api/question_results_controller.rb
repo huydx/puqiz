@@ -12,7 +12,7 @@ class Api::QuestionResultsController < Api::ApplicationController
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
     @point = 0
-    unless correct_questions && correct_questions.empty?
+    if correct_questions && !correct_questions.empty?
       correct_questions.each do |q|
         @point = @point + Question::LEVEL_SCORE_MAP[q['level'].to_s]
         update_correct_question(ActiveSupport::HashWithIndifferentAccess.new(q))

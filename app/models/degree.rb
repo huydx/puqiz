@@ -33,19 +33,21 @@ class Degree < ActiveRecord::Base
     {id: 5, degree: TYPE::LEGENDARY, reaching_point: 5000}
   ]
 
-  def update_new_degree
-    new_deg_type = TYPE::LEGENDARY
-    SCORETABLE.each do |degree_map|
-      if self.point <= degree_map[:reaching_point]
-        new_deg_type = degree_map[:degree] and break
-      end
-    end
-    if new_deg_type != self.type
-      self.type = new_deg_type 
+  def update_new_degree?
+    return false if self.point > 0 && self.type == TYPE::LEGENDARY
+    return false if self.point < 0 && self.type == TYPE::BEGINNER
+
+    if self.point >= next_degree_reach_point
+      self.type += 1
       return true
-    else
-      return false
     end
+
+    if self.point < 0
+      self.type -= 1
+      return true
+    end
+    
+    return false
   rescue Exception => e
     logger.error(e.backtrace.join("\n"))
     return false
@@ -54,13 +56,13 @@ class Degree < ActiveRecord::Base
   def increment_point_by!(increment_point)
     self.point = self.point.to_i + increment_point.to_i
     self.accumulate_point = self.accumulate_point.to_i + increment_point.to_i
-    self.point = 0 if update_new_degree #reset if new level is set
+    self.point = 0 if update_new_degree? #reset if new level is set
     save
   end
   
   def point_until_next_level
     return 0 if self.type == TYPE::LEGENDARY        
-    return (SCORETABLE.find{|s| s[:degree] == self.type+1}.fetch(:reaching_point) - self.point)
+    return next_degree_reach_point - self.point
   rescue Exception => e
     logger.error(e.backtrace.join('\n'))
     return 0
@@ -68,7 +70,7 @@ class Degree < ActiveRecord::Base
 
   def point_until_down_level
     return 0 if self.type == TYPE::BEGINNER 
-    return (self.point - SCORETABLE.find{|s| s[:degree] == self.type-1}.fetch(:reaching_point))
+    return self.point
   rescue Exception => e
     logger.error(e.backtrace.join('\n'))
     return 0
@@ -90,5 +92,15 @@ class Degree < ActiveRecord::Base
     self.point = 0
     self.accumulate_point = 0
     self.type = TYPE::DEFAULT
+  end
+
+  def next_degree_reach_point
+    return 0 if self.type == TYPE::LEGENDARY
+    SCORETABLE.find{|s| s[:degree] == self.type+1}.fetch(:reaching_point)
+  end
+
+  def prev_degree_reach_point
+    return 0 if self.type == TYPE::BEGINNER
+    SCORETABLE.find{|s| s[:degree] == self.type-1}.fetch(:reaching_point)
   end
 end
