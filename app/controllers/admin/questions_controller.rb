@@ -77,7 +77,12 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def merge_params_answer
     if answers = params[:question][:answers_attributes]
-      answers.each { |key, val| val.merge!("flag" => "0") unless val["flag"] }
+      answers.each do
+        |key, val| val.merge!("flag" => "0") unless val["flag"] 
+        if val["content"].blank?
+          val.merge!(_destroy: true)
+        end
+      end
     end
   rescue Exception => e
   end
