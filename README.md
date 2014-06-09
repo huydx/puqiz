@@ -85,13 +85,13 @@ puqiz
   Another: post params as below:
   
   ```
-  "question"=>
+  "question_review"=>
     { "content"=>"sadadsad", 
       "tag_id"=>"1", 
       "time"=>"5", 
       "url"=>"http://www.google.com", 
       "level"=>"1", 
-      "answers_attributes"=>
+      "answer_reviews_attributes"=>
         { "0"=>{"content"=>"sadasd"}, 
           "1"=>{"content"=>"sadad", "flag"=>"1"}, 
           "2"=>{"content"=>"sadsadasd"}, 
