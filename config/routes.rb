@@ -41,7 +41,11 @@ Puqiz::Application.routes.draw do
         post 'batch_create'
       end
     end
-    resources :tags
+    resources :tags do
+      member do
+        get 'explaination'
+      end
+    end
     get 'analytic/ranking', to: 'analytic#ranking_all'
   end
 

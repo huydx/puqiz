@@ -16,7 +16,8 @@ class Admin::TagsController < Admin::ApplicationController
     flash.now[:notice] = 'Success!'
     render 'edit'
   rescue Exception => e
-    logger.error(e.backtrace.join '\n')
+    logger.error(e.backtrace)
+    render text: "error!"
   end
 
   def update
@@ -25,7 +26,8 @@ class Admin::TagsController < Admin::ApplicationController
     @tag.update_attributes!(params[:tag])
     render 'edit'
   rescue Exception => e
-    render status: 500
+    logger.error(e.backtrace)
+    render text: "error!" 
   end
 
   def delete
