@@ -1,4 +1,6 @@
 Puqiz::Application.routes.draw do
+  get "credits/index"
+
   namespace :admin do
     resources :questions do
       get 'delete'
@@ -46,6 +48,7 @@ Puqiz::Application.routes.draw do
         get 'explaination'
       end
     end
+    resources :credits, only: [:index]
     get 'analytic/ranking', to: 'analytic#ranking_all'
   end
 

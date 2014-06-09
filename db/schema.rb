@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140609051554) do
+ActiveRecord::Schema.define(:version => 20140609074726) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(:version => 20140609051554) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "credits", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "username"
+    t.string   "provider"
+    t.string   "email"
+    t.integer  "question_number"
+  end
 
   create_table "degrees", :force => true do |t|
     t.integer  "user_id"

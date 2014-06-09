@@ -1,6 +1,7 @@
 class Admin::ApplicationController < ApplicationController
   protect_from_forgery
   before_filter :authenticate_admin_user!
+  layout "admin/application"
   
   protected
   def authenticate_admin_user!
