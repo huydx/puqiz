@@ -1,5 +1,6 @@
 Puqiz::Application.routes.draw do
   namespace :admin do
+    get '/', to: "questions#index"
     resources :questions do
       get 'delete'
     end
