@@ -1,7 +1,7 @@
 class Tag < ActiveRecord::Base
   attr_accessible :content, :image, :explaination, :explaination_url
   validates_uniqueness_of :content
-  before_save :touch_recently_update_tag, :generate_explaination_url
+  before_save :touch_recently_update_tag
   before_create :touch_recently_update_tag, :generate_explaination_url
   DEFAULT_TAG = 1
 
@@ -19,7 +19,9 @@ class Tag < ActiveRecord::Base
   end
 
   def generate_explaination_url
-    self.explaination_url = 
-      Rails.application.routes.url_helpers.explaination_api_tag_path(self)
+    unless self.explaination_url
+      self.explaination_url = 
+        Rails.application.routes.url_helpers.explaination_api_tag_path(self)
+    end
   end
 end

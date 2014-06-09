@@ -5,14 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-tags = Tag.create([
-          {content: "Ruby"},
-          {content: "Objective-C"},
-          {content: "Python"},
-          {content: "C++"},
-          {content: "C"}
-        ])
-
 admin = AdminUser.create(
           username: 'admin',
           password: 'admin',
