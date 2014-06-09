@@ -31,4 +31,22 @@ class Api::QuestionsController < Api::ApplicationController
   rescue Exception => e
     render json: {status: false}
   end
+
+  def report
+    qid = params[:question_id]
+    question = Question.find_by_id(qid)
+    raise Exception, "can not find question" unless question
+    content = params[:data][:content]
+
+    UserReport.create(
+      username: current_user.name, 
+      provider: current_user.provider,
+      question_id: qid,
+      content: content
+    )
+    render json: {status: true}
+  rescue Exception => e
+    logger.error(e.message + e.backtrace.first(5).join(" "))
+    render json: {status: false}
+  end
 end

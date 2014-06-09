@@ -99,7 +99,19 @@ puqiz
 
   //note that flag of answers can be nothing or 0
   ```
-  
+
+##Question report
+  Endpoint: POST **host/api/questions/report**
+
+  Must have params [uid] + [token] + [question_id] + {data: {content: ...}}
+
+  Return 
+
+  ```
+    {status: true | false}
+  ```
+
+
 ##Analytic
   Endpoint: GET *host/api/analytic/ranking*
   
