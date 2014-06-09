@@ -6,6 +6,8 @@ gem 'authlogic'
 gem 'scrypt'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

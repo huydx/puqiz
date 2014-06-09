@@ -1,5 +1,5 @@
 class Api::QuestionsController < Api::ApplicationController
-  protect_from_forgery except: [:index]
+  protect_from_forgery except: [:index, :create]
   def index
     _tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
     _offset = (params[:offset] || 0).to_i
@@ -47,6 +47,18 @@ class Api::QuestionsController < Api::ApplicationController
     render json: {status: true}
   rescue Exception => e
     logger.error(e.message + e.backtrace.first(5).join(" "))
+    render json: {status: false}
+  end
+
+  def create
+    @question_review = QuestionReview.create(params[:question_review])
+    if @question_review.errors.empty?
+      render json: {status: true}
+    else
+      render json: {status: false}
+    end 
+  rescue Exception => e
+    logger.error(e.backtrace.join('\n'))
     render json: {status: false}
   end
 end
