@@ -43,10 +43,19 @@
       }
     }
 
-    .loginBtn {
-      position: absolute;
+    .twitter {
       top: 60px;
       left: 600px;
+    }
+
+    .facebook {
+      top: 120px;
+      left: 600px;
+    }
+
+    .loginBtn {
+      position: absolute;
+      
       box-sizing: border-box;
       border: 2px solid #fff;
       border-radius: 6px;

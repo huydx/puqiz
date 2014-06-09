@@ -28,19 +28,26 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_twitter_oauth(auth_hash)
-    provider = auth_hash["provider"]
-    uid = auth_hash["uid"]
     name = auth_hash["info"]["nickname"]
-
-    user = User.find_by_uuid(uid)
+    user = self.find_for_oauth(auth_hash) 
     return nil unless
-      user && user.provider == "twitter" && user.name == name
+      user && user.name == name && user.provider == "twitter"
     return user
+  end
+
+  def self.find_for_facebook_oauth(auth_hash)
+    user = self.find_for_oauth(auth_hash) 
+    return nil unless user && user.provider == "facebook"
+    return user
+  end
+
+  def self.find_for_oauth(auth_hash)
+    uid = auth_hash["uid"]
+    user = User.find_by_uuid(uid)
   rescue Exception => e
     logger.error(e.message)
     return nil
   end
-
 
   protected
   def set_default_degree

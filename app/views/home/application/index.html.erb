@@ -13,9 +13,13 @@
         <img src="https://dlebm0f040apo.cloudfront.net/public/f399d2/images/app-store-btn-big-en_US.png">
       </a> 
     </div>
-    <div class="loginBtn">
+    <div class="loginBtn twitter">
       <%= link_to "Sign in with Twitter", "/auth/twitter" %>
     </div>
+    <div class="loginBtn facebook">
+      <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+    </div>
+
     <div id="iphoneDiv">
       <%= image_tag(asset_path('ios_sample_3.PNG'), size: '320x568', class: 'iphoneImg img0') %>
       <%= image_tag(asset_path('ios_sample_2.PNG'), size: '320x568', class: 'iphoneImg img1') %>
