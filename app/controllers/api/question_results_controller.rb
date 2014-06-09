@@ -13,15 +13,17 @@ class Api::QuestionResultsController < Api::ApplicationController
     failed_question = params[:data][:failed_question]
     @point = 0
     if correct_questions && !correct_questions.empty?
+      arr = []
       correct_questions.each do |q|
         @point = @point + Question::LEVEL_SCORE_MAP[q['level'].to_s]
-        update_correct_question(ActiveSupport::HashWithIndifferentAccess.new(q))
+        arr << q["question_id"]
       end
+      update_correct_question(arr, params["tag_id"])
     end
     
     if failed_question
       @point = @point - Question::LEVEL_SCORE_MAP[failed_question['level'].to_s]
-      update_failed_question(ActiveSupport::HashWithIndifferentAccess.new(failed_question))
+      update_failed_question(failed_question["question_id"], params["tag_id"])
     end
     
     if new_degree_and_point = update_user_point_and_degree
@@ -31,26 +33,25 @@ class Api::QuestionResultsController < Api::ApplicationController
       render json: {status: false} 
     end
   rescue Exception => e
-    logger.error(e.backtrace.join('\n'))
+    logger.error(e.backtrace.first(5).join("\t\n"))
     render json: {status: false} 
   end
 
   protected
-  def update_correct_question(result_params)
-    result_params.merge!(result: "true", user_id: current_user.id)
-    update_question_result(result_params)
+  def update_correct_question(q_arr, tag_id)
+    exist_ids = QuestionResult.where(id: q_arr).pluck(:id)
+    new_ids   = q_arr - exist_ids
+    results   = []
+    QuestionResult.where(id: exist_ids).update_all(result: "true")
+    new_ids.each do |id|
+      results << QuestionResult.new(question_id: id, result: "true", user_id: current_user.id, tag_id: tag_id)
+    end
+    QuestionResult.import results
   end
 
-  def update_failed_question(result_params)
-    result_params.merge!(result: "false", user_id: current_user.id)
-    update_question_result(result_params)
-  end
-
-  def update_question_result(result_params)
-    if result = QuestionResult.find_by_question_id(result_params[:question_id])
-      result.update_attributes!(result_params)
-    else
-      QuestionResult.create(result_params) 
+  def update_failed_question(qid, tag_id)
+    QuestionResult.find_or_create_by_question_id(qid) do |r|
+      r.result = "false"
     end
   end
   
