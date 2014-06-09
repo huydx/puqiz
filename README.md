@@ -61,7 +61,7 @@ puqiz
     {
       status: true | false
       data: [
-        Tags {id, content, full_image_path}
+        Tags {id, content, full_image_path, explaination_url}
       ]
     }
   ```
