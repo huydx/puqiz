@@ -1,6 +1,4 @@
 Puqiz::Application.routes.draw do
-  get "credits/index"
-
   namespace :admin do
     resources :questions do
       get 'delete'
