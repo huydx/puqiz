@@ -14,10 +14,10 @@
       </a> 
     </div>
     <div class="loginBtn twitter">
-      <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+      <%= link_to "Sign in with Twitter", "/auth/twitter", class: "loginBtnLink" %>
     </div>
     <div class="loginBtn facebook">
-      <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+      <%= link_to "Sign in with Facebook", "/auth/facebook", class: "loginBtnLink" %>
     </div>
 
     <div id="iphoneDiv">
@@ -33,7 +33,7 @@
     window.iphoneImgArray = $('.iphoneImg');
     var length = window.iphoneImgArray.length;
     console.log(length);
-    window.currentImgIndex = 0;
+    window.currentImgIndex = 2;
 
     setInterval(function(){
       var prevImgClass = ".img" + window.currentImgIndex;

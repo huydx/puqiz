@@ -1,0 +1,17 @@
+<table class="analyticTable">
+  <tr>
+    <td>タグ</td>
+    <td>現在のレベル</td>
+    <td>蓄積ポイント</td>
+    <td>正解率</td>
+  </tr>
+<% @degrees.each do |e| %>
+  <tr>
+    <td><%= e.tag_id %></td>
+    <td><%= e.type %></td>
+    <td><%= e.accumulate_point %></td>
+    <td><%= QuestionResult.correct_percentage(current_user.id, e.tag_id) %></td>
+  </tr>
+<% end %>
+  
+</table>

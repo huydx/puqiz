@@ -3,6 +3,11 @@
   src: url('assets/fonts/Cicle_Fina.ttf') format('truetype');
 }
 
+body {
+  padding:auto;
+  margin:auto;  
+}
+
 .homeUserNav {
   background: #333333;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
@@ -14,35 +19,33 @@
   height: 50px;
   box-sizing: border-box;
 
-  .row {
-    float: left;
-  }
-
-  .container {
-    width: 750px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  
   .logo {
     width: 50%;
     padding-top: 4px;
     float: left;
+    padding-left: 15px;
   }
 
   .signOut {
-    padding-top: 7px;
-    float: left;
+    padding-top: 2px;
+    float: right;
+    padding-right: 25px;
+    padding-left: 20px;
   }
 
   .user {
     width: 20%;
+    float: right;
+    padding-top: 8px;
+
     .name {
       padding-top: 15px;
       padding-left: 15px;
+      display: inline;
     }
     .avatar {
       padding-top: 8px;
+      display: inline;
       .avatar_img {
         border-radius: 50%;
         width: 30px;
@@ -58,41 +61,49 @@
   padding-top: 50px;
   padding-left: 80px;
   font-family: 'Monaco';
+  
+  .analyticTable {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+
+  }
 
   .leftRow{
-    width: 30%;
+    width: 50%;
+    height: 100%;
     float: left;
-
-    .contributeButton {
-      width: 50%;
-      padding: 10px 16px;
-      border: 2px solid #ff5454;
-      color: #ff5454;
-      font-size: 18px;
-      border-radius: 6px;
-      font-weight: 500;
-      -webkit-font-smoothing: antialiased;
-      box-sizing: border-box;
-
-      a {
-        background: transparent;
-      }  
-      
-      :hover {
-        text-decoration: none;
-        text-color: white;
-      }
-
-      a:-webkit-any-link {
-        cursor: auto;
-        text-decoration: none;
-      }
-    }
   }
 
   .rightRow {
     float: right;
-    width: 60%;
+    width: 30%;
+    height: 100%;
+  }
+
+  .contributeButton {
+    width: 200px;
+    padding: 10px 16px;
+    border: 2px solid #ff5454;
+    color: #ff5454;
+    font-size: 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+
+    a {
+      background: transparent;
+    }  
+    
+    :hover {
+      text-decoration: none;
+      text-color: white;
+    }
+
+    a:-webkit-any-link {
+      cursor: auto;
+      text-decoration: none;
+    }
   }
 }
 

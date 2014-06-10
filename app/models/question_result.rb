@@ -11,17 +11,19 @@ class QuestionResult < ActiveRecord::Base
   }
   
   def self.correct_percentage(uid, tagid)
-    false_records = false_result(uid, tagid).count
-    correct_records = correct_result(uid, tagid).count
-    100 * (correct_records / (false_records + correct_records))
+    false_records = false_result(uid, tagid).count.to_f
+    correct_records = correct_result(uid, tagid).count.to_f
+    ret = 100 * (correct_records / (false_records + correct_records))
+    ret = ret.nan? ? 0 : ret.round(3)
   rescue
     0
   end
 
   def self.correct_percentage_by_level(uid, tagid, level)
-    false_records = false_result(uid, tagid).where(level: level).count
-    correct_records = correct_result(uid, tagid).where(level: level).count
+    false_records = false_result(uid, tagid).where(level: level).count.to_f
+    correct_records = correct_result(uid, tagid).where(level: level).count.to_f
     100 * (correct_records / (false_records + correct_records))
+    ret = ret.nan? ? 0 : ret.round(3)
   rescue
     0
   end

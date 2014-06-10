@@ -1,16 +1,14 @@
 <% if current_user %>
   <div class="homeUserNav">
-    <div class="container">
-      <div class="logo">
-        <%= image_tag "logo.png" %>
+    <div class="logo">
+      <%= image_tag "logo.png" %>
+    </div>
+    <div class="row user">
+      <div class="row avatar">
+        <%= safe_tag_image current_user.avatar, class: "row avatar_img" %>
       </div>
-      <div class="row user">
-        <div class="row avatar">
-          <%= safe_tag_image current_user.avatar, class: "row avatar_img" %>
-        </div>
-        <div class="row name">
-          <%= current_user.name %>
-        </div>
+      <div class="row name">
+        <%= current_user.name %>
       </div>
       <div class="signOut">
         <a href="<%= home_signout_path %>">

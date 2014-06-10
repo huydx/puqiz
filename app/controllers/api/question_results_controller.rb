@@ -18,12 +18,12 @@ class Api::QuestionResultsController < Api::ApplicationController
         @point = @point + Question::LEVEL_SCORE_MAP[q['level'].to_s]
         arr << q["question_id"]
       end
-      update_correct_question(arr, params["tag_id"])
+      update_correct_question(arr, params[:data][:tag_id])
     end
     
     if failed_question
       @point = @point - Question::LEVEL_SCORE_MAP[failed_question['level'].to_s]
-      update_failed_question(failed_question["question_id"], params["tag_id"])
+      update_failed_question(failed_question["question_id"], params[:data][:tag_id])
     end
     
     if new_degree_and_point = update_user_point_and_degree
@@ -50,9 +50,12 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
 
   def update_failed_question(qid, tag_id)
-    QuestionResult.find_or_create_by_question_id(qid) do |r|
-      r.result = "false"
+    q = QuestionResult.find_or_create_by_question_id(qid) do |r|
+      r.user_id = current_user.id 
+      r.result  = "false"
+      r.tag_id  = tag_id
     end
+    q.save
   end
   
   def update_user_point_and_degree

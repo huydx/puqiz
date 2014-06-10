@@ -1,19 +1,22 @@
 <div class="userIndexrow">
   <div class="leftRow">
-    <div class="contributeButton">
-      <a href="<%= home_users_contribute_guide_path %>">
-        Apply To Contribute
-      </a>
-    </div>
     <div class="analyticTable">
+      <%= render partial: "analytic_table" %>
     </div>
-  </div>
-  <div class="rightRow">
     <div class="analyticChart">
       <canvas id="allLangChart" width="500px" height="500px"></canvas>
     </div>
   </div>
-</div>
+  <div class="rightRow"> 
+    
+    <div class="contributeButton"> 
+      <a href="<%= home_users_contribute_guide_path %>"> 
+        Apply To Contribute 
+      </a> 
+    </div> 
+  </div> 
+</div> 
+
 
 <%= javascript_include_tag "Chart.min" %>
 <script type="text/javascript">
