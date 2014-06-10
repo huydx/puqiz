@@ -1,10 +1,8 @@
 <div class="userIndexrow">
   <div class="leftRow">
-    <div class="analyticTable">
-      <%= render partial: "analytic_table" %>
-    </div>
+    <%= render partial: "analytic_table" %>
     <div class="analyticChart">
-      <canvas id="allLangChart" width="500px" height="500px"></canvas>
+      <canvas id="allLangChart" width="700px" height="700px"></canvas>
     </div>
   </div>
   <div class="rightRow"> 
@@ -16,24 +14,38 @@
     </div> 
   </div> 
 </div> 
-
+<div class="hidden chartData">
+  <% @degrees.each do |d| %>
+  <div class="item">
+    <div class="tagContent"><%= tag_content(d.tag_id) %></div>
+    <div class="correctPerc"><%= correct_percentage(d.tag_id) %></div>
+  </div>
+  <% end %>
+<div>
 
 <%= javascript_include_tag "Chart.min" %>
 <script type="text/javascript">
   $(document).ready(function() {
     var ctx = $("#allLangChart")[0].getContext("2d");
+    var labels = [];
+    var data = []
+    $(".tagContent").each(function() { labels.push($(this).text()) });
+    $(".correctPerc").each(function() { data.push($(this).text()) });
+    console.log(labels);
+    console.log(data);
+
     var data = {
-      labels : ["Eating","Drinking","Sleeping","Designing","Coding","Partying","Running"],
+      labels : labels,
       datasets : [
         {
           fillColor : "rgba(54,54,54,0.5)",
           strokeColor : "rgba(151,187,205,1)",
           pointColor : "rgba(151,187,205,1)",
           pointStrokeColor : "#fff",
-          data : [28,48,40,19,96,27,100]
+          data : data 
         }
       ]
     }
-    new Chart(ctx).Radar(data, {scaleShowLabels : false, pointLabelFontSize : 10});
+    new Chart(ctx).Radar(data, {scaleShowLabels : false, pointLabelFontSize : 20});
   });
 </script>

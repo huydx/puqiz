@@ -75,6 +75,14 @@ class Degree < ActiveRecord::Base
     logger.error(e.backtrace.join('\n'))
     return 0
   end
+    
+  def rank
+    @ranking ||= 
+      Degree
+        .where("tag_id = ?", self.tag_id)
+        .where("accumulate_point > ?", self.accumulate_point)
+        .count + 1
+  end
 
   protected
   def clean_param!
@@ -103,4 +111,6 @@ class Degree < ActiveRecord::Base
     return 0 if self.type == TYPE::BEGINNER
     SCORETABLE.find{|s| s[:degree] == self.type-1}.fetch(:reaching_point)
   end
+
+  
 end

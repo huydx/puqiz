@@ -65,7 +65,16 @@ body {
   .analyticTable {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
-
+    border: 2px #ccc solid;
+    border-radius: 9px;
+    
+    td {
+      margin-left: 10px;
+      padding-right: 10px;
+      line-height: 20px;
+      border: 2px #ccc solid;
+    } 
+    
   }
 
   .leftRow{
