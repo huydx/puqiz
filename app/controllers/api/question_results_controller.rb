@@ -64,7 +64,7 @@ class Api::QuestionResultsController < Api::ApplicationController
 
   protected
   def init_current_degree
-    tag_id = params[:tag_id] || Tag::DEFAULT_TAG
+    tag_id = params[:data][:tag_id] || Tag::DEFAULT_TAG
     @current_degree = Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
   end
 
