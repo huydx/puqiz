@@ -1,5 +1,7 @@
 class Api::QuestionsController < Api::ApplicationController
   protect_from_forgery except: [:index, :create]
+  skip_before_filter  :authenticate_user!, only: [:create]
+
   def index
     _tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
     _offset = (params[:offset] || 0).to_i

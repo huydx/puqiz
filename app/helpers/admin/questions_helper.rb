@@ -25,6 +25,7 @@ module Admin::QuestionsHelper
   end
 
   def shorten(text, max_len)
+    return "" unless text
     return text if text.length <= max_len
     return "#{text[0..max_len-1]}..."
   end

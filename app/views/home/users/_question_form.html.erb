@@ -1,0 +1,69 @@
+<div class="questionReviewForm">
+  <div class="notice">
+    <ul>
+      <li>回答を<red>二つ以上</red>入力してください</li><br/>
+      <li>質問はMarkDown形で入力可能, またはソースコードブロック入力も可能。
+      ソースコードにブロックを付けると、アプリ側で表示するとき<red>ハイライトができます。</red>
+        <span>
+          例：<br/>
+          ~~~ruby<br/>
+          def test<br/>
+          end<br/>
+          ~~~<br/>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="rightForm">
+    <%= form_for @question, url: api_questions_path  do |f| %>
+      <div>内容：</div><%= f.text_area :content, rows: 8, cols: 29, class: "questionContent"%><br/>   
+      タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id), class: "questionTag" %><br/>
+      時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
+      参照url: <%= f.text_area :url, rows: 1, cols: 35 %><br/>
+      レベル：<%= f.select :level, options_for_select((1..5)) %><br/>
+      <%= f.fields_for :answer_reviews do |builder| %>
+      <div class="answersRow">
+        <%= builder.label :content, "回答内容"%>
+        <%= builder.text_field :content, rows: 1, class: "answerInput" %>
+        <%= builder.label :flag, "正" %>
+        <%= builder.radio_button :flag, 1, {checked: builder.object.flag == 1, class: "answerFlagRadio", state: builder.object.flag == 1} %>
+      </div>
+      <% end %>
+      <br/><br/>
+      <%= f.submit "質問サーブミット", class: "btn btn-primary submitBtn" %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".answerFlagRadio").click(function() {
+      var state = $(this).prop('state');
+      $(this).prop('checked', !state);
+      $(this).prop('state', !state);
+      $(this).val(!state ? 1 : 0);
+    });
+
+    $("#new_question_review").submit(function(e) {
+      e.preventDefault();
+      var $form = $(this);
+      if ($form.find(".questionContent").val().length == 0) {
+        alert("質問内容を入力してください");
+        return;
+      }
+
+      var $button = $form.find(".submitBtn");
+      $.ajax({
+        url: $form.attr("action"),
+        type: $form.attr("method"),
+        data: $form.serialize(),
+        timeout: 1000,
+        success: function(result, textStatus, xhr) {
+          console.log(result);
+          if (result.status == true) { alert("OK!"); }
+          else { alert("Failed!"); }
+        }
+      })
+    });
+  });
+</script>

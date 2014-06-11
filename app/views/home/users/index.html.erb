@@ -2,17 +2,40 @@
   <div class="leftRow">
     <%= render partial: "analytic_table" %>
     <div class="analyticChart">
-      <canvas id="allLangChart" width="700px" height="700px"></canvas>
+      <canvas id="allLangChart" width="500px" height="500px"></canvas>
     </div>
   </div>
   <div class="rightRow"> 
-    
-    <div class="contributeButton"> 
-      <a href="<%= home_users_contribute_guide_path %>"> 
-        Apply To Contribute 
-      </a> 
+    <div class="buttonRow"> 
+      <div class="contributeButton" id="contributeForm1"> 
+        <a href="#small-dialog-1" data-effect="mfp-move-horizontal"> 
+          質問投稿
+        </a> 
+      </div>
+
+      <div class="contributeButton" id="contributeForm2"> 
+        <a href="#small-dialog-2" data-effect="mfp-move-horizontal"> 
+          なぜ質問貢献すべき？
+        </a> 
+      </div>
+
+      <div class="contributeButton" id="contributeForm3"> 
+        <a href="#small-dialog-3" data-effect="mfp-move-horizontal"> 
+          どうやって？
+        </a> 
+      </div>
+    </div>
+
+    <div id="small-dialog-1" class="white-popup mfp-with-anim mfp-hide">
+      <%= render partial: "question_form" %>
     </div> 
-  </div> 
+
+    <div id="small-dialog-2" class="white-popup mfp-with-anim mfp-hide">
+      test
+    </div>
+    <div class="contributeGuide">
+      <%= render partial: "contribute_list" %> 
+    </div> 
 </div> 
 <div class="hidden chartData">
   <% @degrees.each do |d| %>
@@ -21,7 +44,8 @@
     <div class="correctPerc"><%= correct_percentage(d.tag_id) %></div>
   </div>
   <% end %>
-<div>
+</div>
+
 
 <%= javascript_include_tag "Chart.min" %>
 <script type="text/javascript">
@@ -47,5 +71,16 @@
       ]
     }
     new Chart(ctx).Radar(data, {scaleShowLabels : false, pointLabelFontSize : 20});
+
+    $('#contributeForm1, #contributeForm2, #contributeForm3').magnificPopup({
+      delegate: 'a',
+      removalDelay: 500, //delay removal by X to allow out-animation
+      callbacks: {
+        beforeOpen: function() {
+           this.st.mainClass = this.st.el.attr('data-effect');
+        }
+      },
+      midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+    }); 
   });
 </script>

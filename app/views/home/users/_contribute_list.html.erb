@@ -1,0 +1,18 @@
+<h2>
+トップ質問Contributorリスト
+</h2>
+
+<table class="creditTable">
+  <tr>
+    <td>ニックネーム</td>
+    <td>投稿質問数</td>
+  </tr>
+  <% @credits.each_with_index do |c, index| %>
+  <tr>
+    <% cl = index < 5 ? 'big' : 'small' %>
+    <td class="<%= cl %>"><%= c.username %></td>
+    <td class="<%= cl %>"><%= c.question_number %></td>
+  </tr>
+  <% end %>
+
+</table>

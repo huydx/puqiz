@@ -39,6 +39,11 @@ class Admin::QuestionReviewsController < Admin::ApplicationController
   end
 
   def delete
+    QuestionReview.find_by_id(params[:question_review_id]).delete
+    redirect_to admin_question_reviews_path
+  rescue Exception => e
+    binding.pry
+    render text: "error!"
   end
 
   protected

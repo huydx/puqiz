@@ -26,7 +26,7 @@ Puqiz::Application.routes.draw do
     namespace :users do
       get "index"
       get "contribute_question"
-      get "contribute_guide"
+      get "contribute_form"
     end
   end
   match "/auth/:provider/callback" => "home/sessions#create"

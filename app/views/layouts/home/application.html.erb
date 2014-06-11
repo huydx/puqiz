@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<%= render partial: "layouts/home/navbar" %>
+<%= render partial: "layouts/home/navbar" if @has_navigation %>
 <%= yield %>
 <%= render partial: "layouts/home/footbar" %>
 

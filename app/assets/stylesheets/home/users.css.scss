@@ -6,13 +6,13 @@
 body {
   padding:auto;
   margin:auto;  
+  font-family: 'Monaco';
 }
 
 .homeUserNav {
   background: #333333;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   -webkit-box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  font-family: 'Monaco';
   font-size: 14px;
   color: white;
   width: 100%;
@@ -85,34 +85,136 @@ body {
 
   .rightRow {
     float: right;
-    width: 30%;
+    width: 50%;
     height: 100%;
+
+    .contributeGuide {
+      border: solid #ccc;
+      border-radius: 6px;
+      width: 550px;
+      height: 600px;
+      margin-top: 20px;
+      margin-right: 20px;
+      overflow: scroll;
+
+      
+      
+      highlight {
+        color: #6E6E6E;
+      }
+      
+      h2 { 
+        margin-left: 80px;
+      }
+      .creditTable {
+        margin-left: 100px;
+        td {
+          padding-left: 40px;
+        }
+        .big {
+          font-size: 30px;
+          font-weight: 700;
+        }
+      }
+    }
   }
 
   .contributeButton {
-    width: 200px;
+    display: inline;
+    width: 80px;
     padding: 10px 16px;
-    border: 2px solid #ff5454;
+    margin-left: 10px;
+    border: 2px solid #888;
     color: #ff5454;
     font-size: 18px;
     border-radius: 6px;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
 
     a {
       background: transparent;
+      color: black;
+      text-decoration: none;
     }  
-    
-    :hover {
-      text-decoration: none;
-      text-color: white;
-    }
+  }
 
-    a:-webkit-any-link {
-      cursor: auto;
-      text-decoration: none;
-    }
+  .contributeButton:hover {
+    background: #ccc;
+    color: white;
+    cursor: true;
   }
 }
 
+/* text-based popup styling */
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 25px;
+  width:auto;
+  max-width: 900px;
+  margin: 0 auto; 
+
+  .questionReviewForm {
+    red { color: red; }
+    .notice {
+      float: left;
+      width: 40%;
+    }
+    
+    .rightForm {
+      margin-left: 50%;
+      width: 60%;
+    }
+
+    .questionContent {
+      font-size: 20px;
+    }
+
+    .answerInput {
+      font-size: 20px;
+    }
+
+    .btn-primary {
+      font-size: 50px;
+    }
+  }
+}
+.mfp-move-horizontal {
+  
+  /* start state */
+  .mfp-with-anim {
+    opacity: 0;
+    transition: all 0.3s;
+    
+    transform: translateX(-50px);
+  }
+  
+  &.mfp-bg {
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  
+  /* animate in */
+  &.mfp-ready {
+    .mfp-with-anim {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    &.mfp-bg {
+      opacity: 0.8;
+    }
+  }
+  
+  /* animate out */
+  &.mfp-removing {
+    
+    .mfp-with-anim {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    &.mfp-bg {
+      opacity: 0;
+    }
+    
+  }
+}
