@@ -8,6 +8,12 @@ class Home::UsersController < Home::ApplicationController
     @credits = Credit.order('question_number DESC').limit(100)
   end
 
+  def download_template
+    filepath = Rails.root.join('public', 'question_template.xls')
+    template = File::stat(filepath)
+    send_file(filepath, :filename => 'question_template.xls', :length => template.size) 
+  end
+
   protected
   def prepare_question_form
     @question = QuestionReview.new

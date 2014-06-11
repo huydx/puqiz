@@ -1,6 +1,6 @@
 module ApplicationHelper
   def safe_tag_image(source, options={})
-    default_source = 'default_tag_image.jpeg'
+    default_source = 'no_image.jpg'
     raise Exception if source.nil? || source.url.nil?
     image_tag(source, options)
   rescue Exception => e

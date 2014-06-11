@@ -218,3 +218,22 @@ body {
     
   }
 }
+
+.whyContribute {
+  font-size: 21px;
+  font-weight: 600;
+
+  highlight {
+    font-size: 30px;
+    color: red;
+  }
+}
+
+.howContribute {
+  big { font-size: 30px; }
+  .downloadLink {
+    text-decoration: none;
+    color: #222;
+    font-size: 20px;
+  } 
+}

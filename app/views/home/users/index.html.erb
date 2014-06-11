@@ -7,12 +7,6 @@
   </div>
   <div class="rightRow"> 
     <div class="buttonRow"> 
-      <div class="contributeButton" id="contributeForm1"> 
-        <a href="#small-dialog-1" data-effect="mfp-move-horizontal"> 
-          質問投稿
-        </a> 
-      </div>
-
       <div class="contributeButton" id="contributeForm2"> 
         <a href="#small-dialog-2" data-effect="mfp-move-horizontal"> 
           なぜ質問貢献すべき？
@@ -24,6 +18,12 @@
           どうやって？
         </a> 
       </div>
+
+      <div class="contributeButton" id="contributeForm1"> 
+        <a href="#small-dialog-1" data-effect="mfp-move-horizontal"> 
+          質問投稿
+        </a> 
+      </div>
     </div>
 
     <div id="small-dialog-1" class="white-popup mfp-with-anim mfp-hide">
@@ -31,7 +31,11 @@
     </div> 
 
     <div id="small-dialog-2" class="white-popup mfp-with-anim mfp-hide">
-      test
+      <%= render partial: "why_contribute" %>
+    </div>
+
+    <div id="small-dialog-3" class="white-popup mfp-with-anim mfp-hide">
+      <%= render partial: "how_contribute" %>
     </div>
     <div class="contributeGuide">
       <%= render partial: "contribute_list" %> 

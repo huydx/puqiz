@@ -1,3 +1,4 @@
+<div class="background"></div>
 <div class="sectionTop">
   <div class="container">
     <div class="logo"></div>
@@ -14,10 +15,12 @@
       </a> 
     </div>
     <div class="loginBtn twitter">
-      <%= link_to "Sign in with Twitter", "/auth/twitter", class: "loginBtnLink" %>
+      <div class="social-logo"></div>
+      <%= link_to "Twitterでログイン", "/auth/twitter", class: "loginBtnLink" %>
     </div>
     <div class="loginBtn facebook">
-      <%= link_to "Sign in with Facebook", "/auth/facebook", class: "loginBtnLink" %>
+      <div class="social-logo"></div>
+      <%= link_to "Facebookでログイン", "/auth/facebook", class: "loginBtnLink" %>
     </div>
 
     <div id="iphoneDiv">
