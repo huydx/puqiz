@@ -10,7 +10,7 @@
     <td></td>
   </tr>
   <% @questions.each do |q| %>
-    <%= render partial: "question_box", locals: {question: q}%><br/>
+    <%= render partial: "question_box", locals: {question: q}%>
   <% end %>
 </table>
 <%= paginate @questions %>
