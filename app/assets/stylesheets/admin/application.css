@@ -13,7 +13,7 @@
  */
 
 ul.navbar{
-  margin-left: 20px;
+  margin-left: 80px;
   margin-bottom:100px;
   margin-top: 20px;
   padding-left:0;
@@ -27,7 +27,13 @@ ul.navbar{
 
 li.navbar{
   float:left;
-  width:110px;
+  padding-left: 23px;
+  padding-right: 5px;
+}
+
+li.navbar, a { 
+  font-size: 17px;
+  text-decoration: none;
 }
 
 a.nav{
@@ -39,7 +45,6 @@ a.nav{
   text-decoration:none;
   background-color:#eeeeee;
   color:#555555;
-  width:109px;
 }
 
 a:hover{
