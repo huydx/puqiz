@@ -2,3 +2,10 @@
 <button style="button" class="csvGenButton">
   <a href="<%= generate_csv_admin_questions_path %>">csv生成</a>
 </button>
+<br/>
+<br/>
+<%= form_tag('/admin/questions/batch_import', method: "post", multipart: true) do %>
+  <%= label :uploaded_file, "ファイルインポート" %>
+  <%= file_field :uploaded_file, :file %>
+  <%= button_tag "サブミット" %>
+<% end %>

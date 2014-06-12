@@ -5,6 +5,7 @@ Puqiz::Application.routes.draw do
       get 'delete'
       collection do
         get 'generate_csv'
+        post 'batch_import'
       end
     end
     resources :user_sessions

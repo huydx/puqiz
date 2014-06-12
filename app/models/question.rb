@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
-  attr_accessible :content, :tag_id, :level, :time, :answers_attributes, :url
+  attr_accessible :content, :tag_id, :level, :time, :answers_attributes, :url, :html_content
   has_many :answers, dependent: :destroy
   has_one :tag
   before_save :create_html_content

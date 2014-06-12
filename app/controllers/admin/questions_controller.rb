@@ -68,19 +68,44 @@ class Admin::QuestionsController < Admin::ApplicationController
           question.time,
           question.url,
           question.html_content,
-          question.answers.map { |answer|
-            "#{answer.content}:#{answer.flag}"
-          }.flatten,
+          question.answers.to_yaml,
         ]
       end
     end
-
 
     send_data(
       data,
       type: 'text/csv',
       filename: "question_backup_#{Time.now.strftime('%Y_%m_%d_%H_%M_%S')}.csv"
     )
+  end
+
+  def batch_import
+    require 'csv'
+    order = [:content, :tag_name, :level, :time, :url, :html_content, :answers ]
+    csv = CSV.open(params[:uploaded_file][:file].tempfile, 'r')
+    csv.each_with_index do |row, index|
+      next if index == 0
+      Question.create do |question|
+        row.each_with_index do |field, index|
+          key = order[index]
+          case key
+          when :content, :level, :time, :url
+            question.send("#{key.to_s}=", field)
+          when :tag_name
+            question.tag_id = Tag.find_by_content(field).id
+          when :answers
+            answers = YAML.load(field) 
+            answers.each { |ans| 
+              question.answers << Answer.create(
+                content: ans.content, flag: ans.flag)
+            }
+          end
+        end
+      end
+    end
+    
+    redirect_to admin_questions_path
   end
 
   protected
