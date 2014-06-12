@@ -8,11 +8,11 @@ html, body { height: 100%; margin: 0px; padding: 0px; }
   background-size: cover;
   box-shadow: inset 0px -10px 20px rgba(0,0,0,0.3);
   z-index: -1;
-  -webkit-filter: blur(13px);
-  -moz-filter: blur(13px);
-  -o-filter: blur(13px);
-  -ms-filter: blur(13px);
-  filter: blur(13px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
 
 .sectionTop {
@@ -141,7 +141,7 @@ html, body { height: 100%; margin: 0px; padding: 0px; }
     
     #iphoneDiv {
       position: fixed;
-      top: 100px;
+      top: 40px;
       right: 120px;
       background-image: image-url("iphone.png");
       width: 375px;
