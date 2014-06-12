@@ -54,6 +54,33 @@ class Admin::QuestionsController < Admin::ApplicationController
     render 'index'
   end
 
+  def generate_csv
+    require 'csv'
+    questions = Question.all
+    
+    data = CSV.generate do |csv|
+      questions.each do |question|
+        csv << [
+          question.content,
+          question.tag_id,
+          question.level,
+          question.time,
+          question.url,
+          question.html_content,
+          question.answers.map { |answer|
+            "#{answer.content}:#{answer.flag}"
+          }.flatten,
+        ]
+      end
+    end
+
+    send_data(
+      data,
+      type: 'text/csv',
+      filename: "question_backup_#{Time.now.strftime('%Y_%m_%d_%H_%M_%S')}.csv"
+    )
+  end
+
   protected
   def prepare_edit_form_before
     @tags = Tag.all.map{|t| [t.content, t.id]}

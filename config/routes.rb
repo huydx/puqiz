@@ -3,6 +3,9 @@ Puqiz::Application.routes.draw do
     get '/', to: "questions#index"
     resources :questions do
       get 'delete'
+      collection do
+        get 'generate_csv'
+      end
     end
     resources :user_sessions
     resources :users
