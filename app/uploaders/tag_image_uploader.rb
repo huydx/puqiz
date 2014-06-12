@@ -15,6 +15,6 @@ class TagImageUploader < CarrierWave::Uploader::Base
 
   def default_url
     #use with assets pipeline
-    ActionController::Base.helpers.asset_path "default_tag_image.jpeg"
+    ActionController::Base.helpers.asset_path "no_image.jpg"
   end
 end
