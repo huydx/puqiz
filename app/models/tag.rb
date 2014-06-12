@@ -1,16 +1,11 @@
 class Tag < ActiveRecord::Base
   attr_accessible :content, :image, :explaination, :explaination_url
   validates_uniqueness_of :content
-  before_save :touch_recently_update_tag
-  before_create :touch_recently_update_tag, :generate_explaination_url
+  after_save :generate_explaination_url
+
   DEFAULT_TAG = 1
 
   mount_uploader :image, TagImageUploader
-
-  def touch_recently_update_tag
-    r = RecentlyUpdateTag.find_or_create_by_tag_id(self.id)
-    r.touch
-  end
 
   def self.updated_after(time)
     result = []
@@ -19,9 +14,17 @@ class Tag < ActiveRecord::Base
   end
 
   def generate_explaination_url
+    host = case Rails.env
+           when "production"; "http://puqiz.com";
+           when "development"; "http://localhost:3000"
+           end
     unless self.explaination_url
-      self.explaination_url = 
-        Rails.application.routes.url_helpers.explaination_api_tag_path(self)
+      explaination_url = 
+        host + "/api/tags/#{self.id.to_s}/explaination"
+      self.update_attribute(:explaination_url, explaination_url)
     end
+
+    r = RecentlyUpdateTag.find_or_create_by_tag_id(self.id)
+    r.touch
   end
 end
