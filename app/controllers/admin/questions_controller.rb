@@ -59,10 +59,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     questions = Question.all
     
     data = CSV.generate do |csv|
+      csv << ["内容","タグ","レベル","時間","参照","html_content","回答"]
       questions.each do |question|
         csv << [
           question.content,
-          question.tag_id,
+          tag_content(question.tag_id),
           question.level,
           question.time,
           question.url,
@@ -73,6 +74,7 @@ class Admin::QuestionsController < Admin::ApplicationController
         ]
       end
     end
+
 
     send_data(
       data,
@@ -112,5 +114,10 @@ class Admin::QuestionsController < Admin::ApplicationController
       end
     end
   rescue Exception => e
+  end
+
+  def tag_content(id)
+    @tags ||= Tag.all
+    @tags.find {|t| t.id == id}.content
   end
 end
