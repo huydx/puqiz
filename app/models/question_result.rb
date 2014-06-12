@@ -1,5 +1,5 @@
 class QuestionResult < ActiveRecord::Base
-  attr_accessible :question_id, :result, :user_id, :tag_id, :level
+  attr_accessible :question_id, :result, :user_id, :tag_id, :level, :try_time
   validates :result, inclusion: {in: ["true", "false"]}
 
   scope :false_result, lambda { |uid, tagid|

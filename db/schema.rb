@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140609130712) do
+ActiveRecord::Schema.define(:version => 20140612102240) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -80,10 +80,11 @@ ActiveRecord::Schema.define(:version => 20140609130712) do
     t.integer  "question_id"
     t.integer  "user_id"
     t.string   "result"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "tag_id"
     t.integer  "level"
+    t.integer  "try_time",    :default => 0
   end
 
   add_index "question_results", ["question_id"], :name => "index_question_results_on_question_id"

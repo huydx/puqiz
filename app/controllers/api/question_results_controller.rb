@@ -42,18 +42,19 @@ class Api::QuestionResultsController < Api::ApplicationController
     exist_ids = QuestionResult.where(id: q_arr).pluck(:id)
     new_ids   = q_arr - exist_ids
     results   = []
-    QuestionResult.where(id: exist_ids).update_all(result: "true")
+    QuestionResult.where(id: exist_ids).update_all("result = 'true', try_time = try_time + 1")
     new_ids.each do |id|
-      results << QuestionResult.new(question_id: id, result: "true", user_id: current_user.id, tag_id: tag_id)
+      results << QuestionResult.new(question_id: id, result: "true", user_id: current_user.id, tag_id: tag_id, try_time: 0)
     end
     QuestionResult.import results
   end
 
   def update_failed_question(qid, tag_id)
     q = QuestionResult.find_or_create_by_question_id(qid) do |r|
-      r.user_id = current_user.id 
-      r.result  = "false"
-      r.tag_id  = tag_id
+      r.user_id   = current_user.id 
+      r.result    = "false"
+      r.tag_id    = tag_id
+      r.try_time  = r.try_time.to_i + 1  
     end
     q.save
   end
