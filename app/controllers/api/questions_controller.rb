@@ -29,12 +29,22 @@ class Api::QuestionsController < Api::ApplicationController
   end
 
   def check_update
-    date    = params[:date]
-    tag_id  = params[:tag_id] || Tag::DEFAULT_TAG
-    asking_date       = ActiveSupport::TimeWithZone.new(asking_date)
-    recent_db_update  = RecentlyUpdateQuestion.find_by_tag_id(tag_id).updated_at
-    render json: {status: true, data: {is_update: recent_db_update > asking_date}}
+    updated_tag_ids = []
+    
+    datas = params[:data]
+    datas.each do |data|
+      date = data[:date]
+      tag_id = data[:tag_id]
+      asking_date = DateTime.parse(date)
+
+      recent_db_update  = RecentlyUpdateQuestion.find_by_tag_id(tag_id)
+      next unless recent_db_update
+      updated_tag_ids << tag_id if recent_db_update.updated_at > asking_date
+    end
+
+    render json: {status: true, data: {is_update: updated_tag_ids}}
   rescue Exception => e
+    logger.error(e.message + e.backtrace.first(5).join(" "))
     render json: {status: false}
   end
 
