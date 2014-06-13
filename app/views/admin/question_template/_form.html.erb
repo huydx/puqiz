@@ -7,6 +7,10 @@
     タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id) %><br/>
     時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
     参照url：<%= f.text_area :url, rows: 1, cols: 35 %> <br/>
+    自動生成参照url：<%= f.object.explaination_url %> <br/>
+    <div>説明:</div>
+    <%= f.text_area :explaination, rows: 16, cols: 65, id: "questionExplaination"%> <br/>
+    <%= button_tag "レンダー →→", class: "btn btn-primary", id: "markdownRenderBtn2", type: "button" %><br/>
     レベル：<%= slider_view(Question::LEVELNUM, default_level(f.object)).html_safe %>
     <span id="levelNum"><%= default_level(f.object) %></span><br/>
     <%= f.hidden_field :level, value: default_level(f.object) %>
@@ -39,6 +43,13 @@
       });
     $("#markdownRenderBtn").click(function() {
       text = $("#questionContent").val();
+      $.post("/admin/markdown", {text: text}, function(data) {
+        $(".markdownRender").html(data);  
+      });
+      });
+
+    $("#markdownRenderBtn2").click(function() {
+      text = $("#questionExplaination").val();
       $.post("/admin/markdown", {text: text}, function(data) {
         $(".markdownRender").html(data);  
       });

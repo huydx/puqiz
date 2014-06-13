@@ -42,6 +42,9 @@ Puqiz::Application.routes.draw do
         get 'check_update'
         post 'report'
       end
+      member do
+        get 'explaination'
+      end
     end
     resources :question_results do
       collection do

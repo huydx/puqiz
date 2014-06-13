@@ -1,6 +1,6 @@
 class Api::QuestionsController < Api::ApplicationController
   protect_from_forgery except: [:index, :create]
-  skip_before_filter  :authenticate_user!, only: [:create]
+  skip_before_filter  :authenticate_user!, only: [:create, :explaination]
 
   def index
     _tag_id = (params[:tag_id] || Tag::DEFAULT_TAG).to_i
@@ -13,6 +13,10 @@ class Api::QuestionsController < Api::ApplicationController
   rescue Exception => e
     logger.error(e.backtrace.join('\n'))
     render json: {status: false}
+  end
+  
+  def explaination
+    @question = Question.find_by_id(params[:id]) || Question.create
   end
 
   def show

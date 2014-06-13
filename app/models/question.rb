@@ -1,9 +1,11 @@
 class Question < ActiveRecord::Base
-  attr_accessible :content, :tag_id, :level, :time, :answers_attributes, :url, :html_content
+  attr_accessible :content, :tag_id, :level, :time, :answers_attributes, :url, :html_content, :explaination, :explaination_html_content, :explaination_url
+
   has_many :answers, dependent: :destroy
   has_one :tag
   before_save :create_html_content
   before_save :touch_recently_update_question
+  after_save :generate_explaination_url
   accepts_nested_attributes_for :answers, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
 
   LEVELNUM = 5
@@ -37,7 +39,7 @@ class Question < ActiveRecord::Base
     return unless new_record?
     self.level = 1
   end
-
+  
 protected
   def number_of_questions
     msg = "You must have at least two answers"
@@ -52,11 +54,24 @@ protected
 
   def create_html_content
     self.html_content = $markdown.render(self.content)
+    self.explaination_html_content = $markdown.render(self.explaination)
   end
 
   def touch_recently_update_question
     RecentlyUpdateQuestion.find_or_create_by_tag_id(self.tag_id) do |r|
       r.question_id = self.id
+    end
+  end
+
+  def generate_explaination_url
+    host = case Rails.env
+           when "production"; "http://puqiz.com";
+           when "development"; "http://localhost:3000"
+           end
+    unless self.explaination_url
+      explaination_url = 
+        host + "/api/questions/#{self.id.to_s}/explaination"
+      self.update_attribute(:explaination_url, explaination_url)
     end
   end
 end
