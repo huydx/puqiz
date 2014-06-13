@@ -39,7 +39,7 @@ puqiz
 ##Question recently update
   Endpoint: GET **host/api/questions/check_update**
   
-  Must have params: [uid] + [token] + [tag_id] + [date]
+  Must have params: [uid] + [token] + [{tag_id: id, date: date}....]
   
   Returns:
   ```
