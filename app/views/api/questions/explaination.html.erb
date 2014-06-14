@@ -1,3 +1,3 @@
 <div class="questionExplaination">
-  <%= @question.explaination_html_content.html_safe %>
+  <%= @question.explaination_html_content.html_safe if @question.explaination_html_content %>
 </div>

@@ -53,8 +53,8 @@ protected
   end
 
   def create_html_content
-    self.html_content = $markdown.render(self.content)
-    self.explaination_html_content = $markdown.render(self.explaination)
+    self.html_content = $markdown.render(self.content) if self.content
+    self.explaination_html_content = $markdown.render(self.explaination) if self.explaination
   end
 
   def touch_recently_update_question

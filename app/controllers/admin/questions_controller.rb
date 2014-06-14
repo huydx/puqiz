@@ -59,7 +59,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     questions = Question.all
     
     data = CSV.generate do |csv|
-      csv << ["内容","タグ","レベル","時間","参照","html_content","回答"]
+      csv << ["内容","タグ","レベル","時間","参照","内容html","説明","説明html","回答"]
       questions.each do |question|
         csv << [
           question.content,
@@ -68,6 +68,8 @@ class Admin::QuestionsController < Admin::ApplicationController
           question.time,
           question.url,
           question.html_content,
+          question.explaination || "",
+          question.explaination_html_content || "",
           question.answers.to_yaml,
         ]
       end
@@ -82,7 +84,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def batch_import
     require 'csv'
-    order = [:content, :tag_name, :level, :time, :url, :html_content, :answers ]
+    order = [:content, :tag_name, :level, :time, :url, :html_content, :explaination, :explaination_html_content, :answers]
     csv = CSV.open(params[:uploaded_file][:file].tempfile, 'r')
     csv.each_with_index do |row, index|
       next if index == 0
@@ -90,7 +92,7 @@ class Admin::QuestionsController < Admin::ApplicationController
         row.each_with_index do |field, index|
           key = order[index]
           case key
-          when :content, :level, :time, :url
+          when :content, :level, :time, :url, :explaination
             question.send("#{key.to_s}=", field)
           when :tag_name
             question.tag_id = Tag.find_by_content(field).id
