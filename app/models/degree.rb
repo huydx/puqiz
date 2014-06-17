@@ -33,17 +33,19 @@ class Degree < ActiveRecord::Base
     {id: 5, degree: TYPE::LEGENDARY, reaching_point: 10000}
   ]
 
-  def update_new_degree?
+  def update_new_degree!
     return false if self.point > 0 && self.type == TYPE::LEGENDARY
     return false if self.point < 0 && self.type == TYPE::BEGINNER
 
     if self.point >= next_degree_reach_point
       self.type += 1
+      self.point = 0
       return true
     end
 
     if self.point < 0
       self.type -= 1
+      self.point = next_degree_reach_point + self.point
       return true
     end
     
@@ -56,7 +58,7 @@ class Degree < ActiveRecord::Base
   def increment_point_by!(increment_point)
     self.point = self.point.to_i + increment_point.to_i
     self.accumulate_point = self.accumulate_point.to_i + increment_point.to_i
-    self.point = 0 if update_new_degree? #reset if new level is set
+    update_new_degree! #reset if new level is set
     save
   end
   
@@ -111,6 +113,4 @@ class Degree < ActiveRecord::Base
     return 0 if self.type == TYPE::BEGINNER
     SCORETABLE.find{|s| s[:degree] == self.type-1}.fetch(:reaching_point)
   end
-
-  
 end
