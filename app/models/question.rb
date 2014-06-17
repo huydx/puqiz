@@ -17,10 +17,18 @@ class Question < ActiveRecord::Base
 
   LEVEL_SCORE_MAP = {
     "1" => 50,
-    "2" => 90,
+    "2" => 100,
     "3" => 150,
     "4" => 200,
     "5" => 300
+  }
+
+  DAMPING_POINT_MAP = {
+    "1" => 40,
+    "2" => 50,
+    "3" => 80,
+    "4" => 100,
+    "5" => 200
   }
   
   scope :with_answers, lambda { includes(:answers) }

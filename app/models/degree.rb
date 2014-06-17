@@ -26,11 +26,11 @@ class Degree < ActiveRecord::Base
   end
 
   SCORETABLE = [
-    {id: 1, degree: TYPE::BEGINNER, reaching_point: 100},
-    {id: 2, degree: TYPE::INTERMEDIATE, reaching_point: 500},
-    {id: 3, degree: TYPE::SENIOR, reaching_point: 1000},
-    {id: 4, degree: TYPE::MASTER, reaching_point: 3000},
-    {id: 5, degree: TYPE::LEGENDARY, reaching_point: 5000}
+    {id: 1, degree: TYPE::BEGINNER, reaching_point: 1300},
+    {id: 2, degree: TYPE::INTERMEDIATE, reaching_point: 2000},
+    {id: 3, degree: TYPE::SENIOR, reaching_point: 3500},
+    {id: 4, degree: TYPE::MASTER, reaching_point: 5000},
+    {id: 5, degree: TYPE::LEGENDARY, reaching_point: 10000}
   ]
 
   def update_new_degree!

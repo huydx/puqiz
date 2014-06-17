@@ -6,7 +6,6 @@ gem 'authlogic'
 gem 'scrypt'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'activerecord-import'
 

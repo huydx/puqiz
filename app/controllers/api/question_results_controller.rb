@@ -22,7 +22,7 @@ class Api::QuestionResultsController < Api::ApplicationController
     end
     
     if failed_question
-      @point = @point - Question::LEVEL_SCORE_MAP[failed_question['level'].to_s]
+      @point = @point - Question::DAMPING_POINT_MAP[failed_question['level'].to_s]
       update_failed_question(failed_question["question_id"], params[:data][:tag_id])
     end
     
