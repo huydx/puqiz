@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140613155602) do
+ActiveRecord::Schema.define(:version => 20140617151633) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -96,8 +96,11 @@ ActiveRecord::Schema.define(:version => 20140613155602) do
     t.integer  "level"
     t.integer  "time"
     t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "explaination",              :limit => 2000
+    t.string   "explaination_html_content", :limit => 3000
+    t.string   "explaination_url",          :limit => 2000
   end
 
   create_table "questions", :force => true do |t|
