@@ -41,7 +41,7 @@ class Question < ActiveRecord::Base
   validate :number_of_questions
   validate :has_correct_answers
 
-  paginates_per 10 #paginate at admin page
+  paginates_per 30 #paginate at admin page
 
   def after_initialize 
     return unless new_record?

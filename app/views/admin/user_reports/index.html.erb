@@ -1,0 +1,16 @@
+<table class='UserReportTable'>
+  <tr>
+    <td class='Main'>内容</td>
+    <td>ユーザ</td>
+    <td>質問 id </td>
+    <td/>
+  </tr>
+<% @reports.each do |report| %>
+  <tr>
+    <td class='Main'><%= report.content %></td>
+    <td><%= report.username %></td>
+    <td><%= link_to "質問#{report.question_id}", edit_admin_question_path(report.question_id) %></td>
+    <td><%= link_to "削除", delete_admin_user_report_path(report) %></td> 
+  </tr>
+<% end %>
+</table>

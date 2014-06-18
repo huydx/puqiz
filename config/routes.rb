@@ -21,6 +21,11 @@ Puqiz::Application.routes.draw do
     end
     post 'markdown', to: "markdown#rendering"
     get 'log_out', to: "user_sessions#destroy"
+    resources :user_reports, only: [:index, :destroy] do
+      member do
+        get 'delete'
+      end
+    end
   end
   
   namespace :home do
