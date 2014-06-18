@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :provider, :token, :uuid, :avatar, :persistence_token
+  attr_accessible :name, :provider, :token, :uuid, :avatar, :persistence_token, :fullname
   before_create :generate_token
   after_create :set_default_degree
   before_update :generate_token

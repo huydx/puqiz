@@ -33,7 +33,8 @@ class UsersController < ApplicationController
   
   def verified_user_params
     {
-      name: params["name"], 
+      name: params["name"],
+      fullname: params["fullname"],
       provider: params["provider"], 
       uuid: params["uuid"],
       avatar: params["avatar"]
