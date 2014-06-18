@@ -12,7 +12,9 @@ class Admin::QuestionsController < Admin::ApplicationController
     @select_tag_id = tag_id
   end  
   
-  def new; end
+  def new
+    @previous_selected_tag = params[:previous_tag_id]
+  end
 
   def create
     @question = Question.create(params[:question]) do |q|

@@ -36,8 +36,8 @@ class Api::QuestionsController < Api::ApplicationController
       date = data[:date]
       tag_id = data[:tag_id]
       asking_date = DateTime.parse(date)
-
       recent_db_update  = RecentlyUpdateQuestion.find_by_tag_id(tag_id)
+
       next unless recent_db_update
       updated_tag_ids << tag_id if recent_db_update.updated_at > asking_date
     end

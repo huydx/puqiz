@@ -66,9 +66,9 @@ protected
   end
 
   def touch_recently_update_question
-    RecentlyUpdateQuestion.find_or_create_by_tag_id(self.tag_id) do |r|
-      r.question_id = self.id
-    end
+    db = RecentlyUpdateQuestion.find_or_create_by_tag_id(self.tag_id)
+    db.question_id = self.id
+    db.save and db.touch
   end
 
   def generate_explaination_url
