@@ -55,8 +55,8 @@ class Degree < ActiveRecord::Base
     return false
   end
 
-  def increment_point_by!(increment_point)
-    self.point = self.point.to_i + increment_point.to_i
+  def increment_point_by!(increment_point, options={})
+    self.point = self.point.to_i + increment_point.to_i if options[:need_change_level_poin]
     self.accumulate_point = self.accumulate_point.to_i + increment_point.to_i
     update_new_degree! #reset if new level is set
     save

@@ -11,7 +11,11 @@ class Api::QuestionResultsController < Api::ApplicationController
   def batch_create
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
+    level = params[:level].to_i || Question::DEFAULT_LEVEL
+
     @point = 0
+    @need_change_level_poin = (level >= @current_degree.type)
+
     if correct_questions && !correct_questions.empty?
       arr = []
       correct_questions.each do |q|
@@ -60,18 +64,19 @@ class Api::QuestionResultsController < Api::ApplicationController
   end
   
   def update_user_point_and_degree
-    return @current_degree.increment_point_by!(@point)
+    return @current_degree.increment_point_by!(@point, {need_change_level_poin: @need_change_level_poin})
   end
 
   protected
   def init_current_degree
     tag_id = params[:data][:tag_id] || Tag::DEFAULT_TAG
     @current_degree = Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
+    @need_change_level_poin = false
   end
 
   def make_return_hash
     {
-      increment_point:          @point,
+      increment_point:          @point = @need_change_level_poin ? @point : 0,
       accumulate_point:         @current_degree.accumulate_point,
       level_point:              @current_degree.point,
       point_until_next_level:   @current_degree.point_until_next_level,
