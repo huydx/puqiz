@@ -2,15 +2,22 @@
 class Admin::QuestionReviewsController < Admin::ApplicationController
   before_filter :prepare_edit_form, only: [:edit, :update]
 
-  def index
+  def index #[TODO] too dirty, need reafactoring
     page = params[:page].to_i
     tag_id = params[:tag_id].to_i
+    level = params[:level].to_i
+
     @questions = QuestionReview.page(page)
     @questions = @questions.where(tag_id: tag_id) if tag_id > 0
+    @questions = @questions.where(level: level) if level > 0
     @select_tag_id = tag_id    
+    @select_level = level
 
-    @tags = Tag.all.map { |t| [t.content, t.id] }
+    @tags = Tag.all.map { |t| [t.content, t.id] } 
     @tags.prepend ["全部", 0]
+
+    @levels = *(1..Question::LEVELNUM)
+    @levels.prepend ["全部", 0]
   end
 
   def edit
