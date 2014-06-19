@@ -71,6 +71,10 @@ class Api::QuestionResultsController < Api::ApplicationController
   def init_current_degree
     tag_id = params[:data][:tag_id] || Tag::DEFAULT_TAG
     @current_degree = Degree.find_by_user_id_and_tag_id(current_user.id, tag_id)
+    if @current_degree.nil?
+      Degree.create(user_id: current_user.id, tag_id: tag_id, type: Degree::TYPE::BEGINNER)
+    end
+
     @need_change_level_poin = false
   end
 
