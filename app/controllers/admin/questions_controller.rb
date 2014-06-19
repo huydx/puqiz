@@ -6,10 +6,17 @@ class Admin::QuestionsController < Admin::ApplicationController
       
   def index
     tag_id = (params[:tag_id] || 0).to_i
+    level  = (params[:level] || 0).to_i
     if tag_id > 0
       @questions = @questions.where(tag_id: tag_id)
     end
+
+    if level > 0
+      @questions = @questions.where(level: level)
+    end
+
     @select_tag_id = tag_id
+    @select_level = level.to_i
   end  
   
   def new
@@ -131,6 +138,8 @@ class Admin::QuestionsController < Admin::ApplicationController
     @questions = Question.page(page) 
     @tags = Tag.all.map{|t| [t.content, t.id]}
     @tags.prepend ["全部", 0]
+    @levels = *(1..Question::LEVELNUM)
+    @levels.prepend ["全部", 0]
   end
 
   def merge_params_answer

@@ -1,5 +1,6 @@
 <div class="questionIndex">
   <%= select_tag :tagFilter, options_for_select(@tags, @select_tag_id), id: "tagFilter" %> タグでフィルタ
+  <%= select_tag :tagFilter, options_for_select(@levels, @select_level), id: "levelFilter" %> レベルでフィルタ 
   <h1><%= title if title%></h1>
   <table class="questionTable">
     <tr class="questionFirstRow">
@@ -20,11 +21,22 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    window.currentTagId = "<%= @select_tag_id %>"; 
+    window.currentLevel = "<%= @select_level %>"; 
+
     $("#tagFilter").change(function() {
-      var tag_id = $(this).val();
+      window.currentTagId = $(this).val();
+      filter();
+    });
+    $("#levelFilter").change(function() {
+      window.currentLevel = $(this).val();
+      filter();
+    });
+
+    window.filter = function() {
       var origin_url = window.location.origin;
       var url = origin_url.substr(0, origin_url.indexOf("?"));
-      location.href = url + "?tag_id=" + tag_id;
-    });
+      location.href = url + "?tag_id=" + window.currentTagId + "&level=" + window.currentLevel;
+    }
   });
 </script>
