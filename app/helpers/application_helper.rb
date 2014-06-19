@@ -20,4 +20,13 @@ module ApplicationHelper
     when 5; "Legendary";
     end
   end
+
+  def tag_of(question_id)
+    tag_id = Question.find_by_id(question_id).tag_id
+    return Tag.find_by_id(tag_id)
+  end
+
+  def tag_content_of(question_id)
+    tag_of(question_id).content
+  end
 end
