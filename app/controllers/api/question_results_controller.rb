@@ -76,7 +76,7 @@ class Api::QuestionResultsController < Api::ApplicationController
 
   def make_return_hash
     {
-      increment_point:          @point = @need_change_level_poin ? @point : 0,
+      increment_point:          @point,
       accumulate_point:         @current_degree.accumulate_point,
       level_point:              @current_degree.point,
       point_until_next_level:   @current_degree.point_until_next_level,

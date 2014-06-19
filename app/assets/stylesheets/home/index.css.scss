@@ -36,8 +36,9 @@ html, body { height: 100%; margin: 0px; padding: 0px; }
     .logo {
       width: 494px;
       height: 153px;
-      background: url("https://dlebm0f040apo.cloudfront.net/public/f399d2/images/quizup-logo-big.svg");
-      background-size: 494px 153px;
+      background-image: image-url("puqiz-icon.png");
+      background-repeat: no-repeat;
+      background-size: 153px 153px;
     }
 
     .sellingPoint {
