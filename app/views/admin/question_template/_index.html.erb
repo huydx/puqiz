@@ -1,6 +1,16 @@
 <div class="questionIndex">
-  <%= select_tag :tagFilter, options_for_select(@tags, @select_tag_id), id: "tagFilter" %> タグでフィルタ
-  <%= select_tag :tagFilter, options_for_select(@levels, @select_level), id: "levelFilter" %> レベルでフィルタ 
+  <div class="filterRow">
+    <%= select_tag :tagFilter, options_for_select(@tags, @select_tag_id), id: "tagFilter" %> タグでフィルタ
+    <%= select_tag :tagFilter, options_for_select(@levels, @select_level), id: "levelFilter" %> レベルでフィルタ 
+    
+    <% if defined?(search_path) %>
+      <%= form_tag search_path, method: :post, class: "searchForm" do %>
+        <%= text_area :question, :keyword, rows: 1, cols: 20 %> 
+        <%= button_tag "検索" %> 
+      <% end %>
+    <% end %>
+  </div>
+
   <h1><%= title if title%></h1>
   <table class="questionTable">
     <tr class="questionFirstRow">
@@ -15,7 +25,7 @@
       <%= render partial: "question_box", locals: {question: q}%>
     <% end %>
   </table>
-  <%= paginate @questions %>
+  <%= paginate @questions if @questions.respond_to? :current_page %>
   <%= yield %>
 </div>
 

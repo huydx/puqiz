@@ -1,7 +1,7 @@
 #-*- encoding: utf-8 -*-
 class Admin::QuestionsController < Admin::ApplicationController
   before_filter :prepare_edit_form_before, only: [:new, :create, :edit, :show, :update]
-  before_filter :prepare_index_view_before, only: [:index, :delete]
+  before_filter :prepare_index_view_before, only: [:index, :delete, :search]
   before_filter :merge_params_answer, only: [:update]
       
   def index
@@ -60,6 +60,15 @@ class Admin::QuestionsController < Admin::ApplicationController
     qid = (params[:question_id] || -1).to_i
     render 'index' and return unless qid > 0
     Question.delete(qid)
+    render 'index'
+  end
+
+  def search
+    keywords = params[:question].fetch(:keyword)
+    keywords = keywords.split()
+    like_sql_with_keywords =
+      keywords.map { |k| "content LIKE '%#{k}%'" }.join(" OR ")
+    @questions = Question.where(like_sql_with_keywords)
     render 'index'
   end
 

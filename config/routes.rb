@@ -6,6 +6,7 @@ Puqiz::Application.routes.draw do
       collection do
         get 'generate_csv'
         post 'batch_import'
+        post 'search'
       end
     end
     resources :user_sessions

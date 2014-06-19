@@ -24,9 +24,7 @@ class Admin::QuestionReviewsController < Admin::ApplicationController
     @question = QuestionReview.find_by_id(params[:id].to_i)
   end
 
-  def create
-
-  end
+  def create; end
 
   def update
     modify_params_to_save
@@ -42,8 +40,7 @@ class Admin::QuestionReviewsController < Admin::ApplicationController
     render 'edit'
   end
 
-  def verify
-  end
+  def verify; end
 
   def delete
     QuestionReview.find_by_id(params[:question_review_id]).delete
@@ -51,6 +48,10 @@ class Admin::QuestionReviewsController < Admin::ApplicationController
   rescue Exception => e
     binding.pry
     render text: "error!"
+  end
+  
+  def search
+
   end
 
   protected

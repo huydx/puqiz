@@ -26,6 +26,14 @@
   }
 }
 
+.filterRow {
+  #tagFilter { display: inline-block; }
+  #levelFilter { display: inline-block; }
+  .searchForm { 
+    display: inline-block;
+  }
+}
+
 .answerRow {
   .answerInput {
     display: inline;
