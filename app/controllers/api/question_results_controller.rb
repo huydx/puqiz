@@ -11,7 +11,7 @@ class Api::QuestionResultsController < Api::ApplicationController
   def batch_create
     correct_questions = params[:data][:correct_questions]
     failed_question = params[:data][:failed_question]
-    level = params[:level].to_i || Question::DEFAULT_LEVEL
+    level = (params[:level] || Question::DEFAULT_LEVEL).to_i
 
     @point = 0
     @need_change_level_poin = (level >= @current_degree.type)
