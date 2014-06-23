@@ -59,8 +59,8 @@ class Admin::QuestionsController < Admin::ApplicationController
   def delete
     qid = (params[:question_id] || -1).to_i
     render 'index' and return unless qid > 0
-    Question.delete(qid)
-    render 'index'
+    Question.destroy(qid)
+    redirect_to action: :index
   end
 
   def search

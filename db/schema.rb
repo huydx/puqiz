@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140618161242) do
+ActiveRecord::Schema.define(:version => 20140623044717) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "username"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20140618161242) do
     t.string   "explaination",              :limit => 2000
     t.string   "explaination_html_content", :limit => 3000
     t.string   "explaination_url",          :limit => 2000
+    t.integer  "user_id"
   end
 
   create_table "questions", :force => true do |t|
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20140618161242) do
     t.string   "explaination",              :limit => 2000
     t.string   "explaination_html_content", :limit => 3000
     t.string   "explaination_url"
+    t.integer  "user_id"
   end
 
   create_table "recently_update_questions", :force => true do |t|

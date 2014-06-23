@@ -39,6 +39,7 @@ Puqiz::Application.routes.draw do
       get "contribute_form"
       get "download_template"
     end
+    resources :questions, only: [:create, :index]
   end
   match "/auth/:provider/callback" => "home/sessions#create"
 
@@ -71,7 +72,5 @@ Puqiz::Application.routes.draw do
       post 'create'
     end
   end
-
-
   root :to => 'home::application#index'
 end

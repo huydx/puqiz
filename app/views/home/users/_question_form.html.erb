@@ -18,12 +18,13 @@
     </ul>
   </div>
   <div class="rightForm">
-    <%= form_for @question, url: api_questions_path  do |f| %>
+    <%= form_for @question, url: home_questions_path   do |f| %>
       <div>内容：</div><%= f.text_area :content, rows: 8, cols: 29, class: "questionContent"%><br/>   
       タグ：<%= f.select :tag_id, options_for_select(@tags, f.object.tag_id), class: "questionTag" %><br/>
       時間：<%= f.select :time, options_for_select(@timerange, f.object.time) %>秒<br/>
-      参照url: <%= f.text_area :url, rows: 1, cols: 35 %><br/>
+      参照url: <%= f.text_area :url, rows: 1, cols: 42 %><br/>
       レベル：<%= f.select :level, options_for_select((1..5)) %><br/>
+      <div>解説：</div><%= f.text_area :explaination, rows: 3, cols: 29, class: "explainationContent" %><br/>
       <%= f.fields_for :answer_reviews do |builder| %>
       <div class="answersRow">
         <%= builder.label :content, "回答内容"%>
